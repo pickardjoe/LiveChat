@@ -1,0 +1,45 @@
+<!DOCTYPE project>
+<project name="LiveChat" default="build" basedir=".">
+	<property name="pluginname" value="LiveChat" />
+	<property name="serverdir" location="C:\Users\Zant\BukkitTestServer" />
+	<property name="src" location="src" />
+	<property name="bin" location="bin" />
+	<property name="lib" location="lib" />
+	<property name="res" location="res" />
+
+	<path id="classpath">
+		<fileset dir="${lib}" includes="*.jar" />
+		<pathelement location="${bin}" />
+	</path>
+
+	<target name="prepare-bin">
+		<delete dir="${bin}" />
+		<mkdir dir="${bin}" />
+	</target>
+
+	<target name="build-src" depends="prepare-bin">
+		<javac target="1.7" source="1.7"
+			srcdir="${src}" destdir="${bin}"
+			debug="on" debuglevel="lines,vars,source"
+			includeantruntime="no">
+			<compilerarg value="-Xlint:deprecation"/>
+			<compilerarg value="-Xbootclasspath/p:${toString:classpath}"/>
+		</javac>
+	</target>
+
+	<target name="dist" depends="build-src">
+		<delete file="${pluginname}.jar" />
+		<jar jarfile="${pluginname}.jar" >
+			<fileset dir="${res}" />
+			<fileset dir="${bin}" />
+		</jar>
+		<delete dir="${bin}" />
+	</target>
+
+	<target name="build" depends="dist">
+		<delete file="${serverdir}/plugins/${pluginname}.jar" />
+		<copy todir="${serverdir}/plugins">
+			<filelist dir="./" files="${pluginname}.jar" />
+		</copy>
+	</target>
+</project>
