@@ -1,14 +1,12 @@
 package com.gmail.zant95;
 
 import java.io.*;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class Log {
-	static FileConfiguration conf = MemStorage.plugin.getConfig();
 	static String dir = MemStorage.plugin.getDataFolder() + File.separator + "logs" + File.separator;
 
 	public static void publicchat(String text) {
-		if (conf.getBoolean("log-public-chat")) {
+		if (MemStorage.conf.getBoolean("log-public-chat")) {
 			java.util.Date date = new java.util.Date(); 
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 			String time = sdf.format(date);
@@ -22,10 +20,13 @@ public class Log {
 				System.err.println("Error: " + e.getMessage());
 			}
 		}
+		if (MemStorage.conf.getBoolean("console-debug-public-chat")) {
+			System.out.println(text);
+		}
 	}
 
 	public static void privatechat(String text) {
-		if (conf.getBoolean("log-private-chat")) {
+		if (MemStorage.conf.getBoolean("log-private-chat")) {
 			java.util.Date date = new java.util.Date(); 
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 			String time = sdf.format(date);
@@ -39,10 +40,13 @@ public class Log {
 				System.err.println("Error: " + e.getMessage());
 			}
 		}
+		if (MemStorage.conf.getBoolean("console-debug-private-chat")) {
+			System.out.println(text);
+		}
 	}
 
 	public static void command(String text) {
-		if (conf.getBoolean("log-commands")) {
+		if (MemStorage.conf.getBoolean("log-commands")) {
 			java.util.Date date = new java.util.Date(); 
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 			String time = sdf.format(date);
@@ -55,6 +59,9 @@ public class Log {
 			} catch (Exception e) {
 				System.err.println("Error: " + e.getMessage());
 			}
+		}
+		if (MemStorage.conf.getBoolean("console-debug-commands")) {
+			System.out.println(text);
 		}
 	}
 }

@@ -36,11 +36,11 @@ public class CommandListener implements Listener{
 
 		
 		PlayerDisplayName.main(sender);
-		Log.command("[" + sender.getWorld().getName() + "][x:" + sender.getCompassTarget().getBlockX() + ",y:" + sender.getCompassTarget().getBlockY() + ",z:" + sender.getCompassTarget().getBlockZ() + "]" + event.getMessage());
+		Log.command("[" + sender.getName() + "] " + event.getMessage());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onServerCommand(ServerCommandEvent event) {
-		Log.command("[CONSOLE]" + event.getCommand());
+		Log.command("[CONSOLE] " + event.getCommand());
 	}
 }

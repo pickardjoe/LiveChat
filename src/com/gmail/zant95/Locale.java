@@ -33,12 +33,11 @@ public class Locale {
 		MemStorage.locale.put("CONVERSATION_WITH", getText("CONVERSATION_WITH"));
 		MemStorage.locale.put("CONVERSATION_WITH_YOURSELF", getText("CONVERSATION_WITH_YOURSELF"));
 		MemStorage.locale.put("END_CONVERSATION", getText("END_CONVERSATION"));
+		MemStorage.locale.put("ANY_CONVERSATION", getText("ANY_CONVERSATION"));
 		MemStorage.locale.put("NOT_PERMISSION", getText("NOT_PERMISSION"));
 		MemStorage.locale.put("NOBODY_REPLY", getText("NOBODY_REPLY"));
 		MemStorage.locale.put("NOT_WITH_YOURSELF", getText("NOT_WITH_YOURSELF"));
-		MemStorage.locale.put("REPLY_USAGE", getText("REPLY_USAGE"));
 		MemStorage.locale.put("EMOTE_USAGE", getText("EMOTE_USAGE"));
-		MemStorage.locale.put("LOCAL_USAGE", getText("LOCAL_USAGE"));
 		MemStorage.locale.put("MUTE_USAGE", getText("MUTE_USAGE"));
 		MemStorage.locale.put("BLOCK_USAGE", getText("BLOCK_USAGE"));
 		MemStorage.locale.put("IGNORE_USAGE", getText("IGNORE_USAGE"));
@@ -53,6 +52,8 @@ public class Locale {
 		MemStorage.locale.put("IGNORED_PLAYER", getText("IGNORED_PLAYER"));
 		MemStorage.locale.put("UNIGNORED_PLAYER", getText("UNIGNORED_PLAYER"));
 		MemStorage.locale.put("YOU_ARE_IGNORED", getText("YOU_ARE_IGNORED"));
+		MemStorage.locale.put("STARTED_LOCAL_CONVERSATION", getText("STARTED_LOCAL_CONVERSATION"));
+		MemStorage.locale.put("ENDED_LOCAL_CONVERSATION", getText("ENDED_LOCAL_CONVERSATION"));
 		MemStorage.locale.put("DISCONECTED_USER", getText("DISCONECTED_USER"));
 		MemStorage.locale.put("RELOAD_CONFIG", getText("RELOAD_CONFIG"));
 	}

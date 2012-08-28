@@ -22,20 +22,24 @@
 # %MSG%               | %FOOD%              #
 # %GROUPNAME%         | %LEVEL%             #
 # %PREFIX%            | %TOTALXP%           #
-# %SUFFIX%            | %TIME%              #
-# %WORLDNAME%         |                     #
+# %SUFFIX%            | %TARGETDISPLAYNAME% #
+# %WORLDNAME%         | %TARGETNAME%        #
+# %TIME%              |                     #
 #############################################
 
-# If you don't want to use the LiveChat's format change
+# If you don't want to use the public LiveChat's format change
 # this option to 'DISABLED'.
-chat-format: '&7[&6%GROUPNAME%&7]&r %DISPLAYNAME%&7:&r %MSG%'
+public-chat-format: '&7[&6%GROUPNAME%&7] %DISPLAYNAME%&7: &r%MSG%'
 
-# Custom format for </me>.
-emote-format: ' * %DISPLAYNAME% %MSG%'
+# Custom format for private chat.
+private-chat-format: '&7[%DISPLAYNAME% &7-> %TARGETDISPLAYNAME%&7] &r%MSG%'
 
 # Local message values.
 local-format: '&8{&7%DISPLAYNAME%&8} &6=>&r %MSG%'
 local-radius: 150
+
+# Custom format for emotes.
+emote-format: ' * %DISPLAYNAME% %MSG%'
 
 # Remember that Minecraft doesn't support more than 16 characters
 # nicknames, this includes color codes. If the nickname exceeds
@@ -45,18 +49,23 @@ op-prefix: ''
 # Players inside will receive all private messages.
 # Comma-separated names.
 socialspy-players: ''
+socialspy-format: '&6 + %DISPLAYNAME% &7-> %TARGETDISPLAYNAME%&7: &r%MSG%'
+socialspy-msg-color: true
 
-# Players inside will be able to talk on the channel.
+# Players inside will be able to talk on the channel admin.
 # Comma-separated names.
 channel-admin-players: ''
-channel-admin-format: '&c<@> %NAME%&7:&r %MSG%'
+channel-admin-format: '&c<@> %NAME%&7: &r%MSG%'
 
-# Log files on your root Bukkit directory.
-# 'server.public.log', 'server.private.log' and
-# 'server.commands.log'.
+# Save this actions on logs folder.
 log-public-chat: true
 log-private-chat: true
 log-commands: true
+
+# Show this actions on console.
+console-debug-public-chat: true
+console-debug-private-chat: true
+console-debug-commands: false
 
 # DON'T CHANGE THIS VALUE!
 version: '1.0.0'

@@ -17,7 +17,7 @@ public class CommandHandler implements CommandExecutor {
 		plugin = instance;
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {	
 		String playerName = null;
 		String targetName = null;
@@ -44,7 +44,7 @@ public class CommandHandler implements CommandExecutor {
 					targetName = target.getName();
 					if (args.length >= 2) {
 						if (targetName != playerName) {
-							Sender.player(player, target, Utils.getMSG(args, 1, sender));
+							Sender.privatechat(player, target, Utils.getMsg(args, 1, sender));
 							return true;
 						} else {
 							sender.sendMessage("\u00A7c" + MemStorage.locale.get("TALK_TO_YOURSELF") + ".");
@@ -59,9 +59,12 @@ public class CommandHandler implements CommandExecutor {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("CONVERSATION_WITH_YOURSELF") + ".");
 						return true;
 					}
-				} else {
+				} else if (MemStorage.speaker.containsKey(playerName)) {
 					MemStorage.speaker.remove(sender.getName());
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("END_CONVERSATION") + ".");
+					return true;
+				} else {
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("ANY_CONVERSATION") + ".");
 					return true;
 				}
 			} else {
@@ -76,17 +79,15 @@ public class CommandHandler implements CommandExecutor {
 				return true;
 			}
 			if (LiveChat.perms.has(sender, "livechat.msg") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
-				if (args.length != 0) {
-					if (MemStorage.reply.get(playerName) != null) {
-						target = Bukkit.getServer().getPlayer(MemStorage.reply.get(playerName));
-						Sender.player(player, target, Utils.getMSG(args, 0, sender));
-						return true;
-					} else {
-						sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_REPLY") + ".");
-						return true;
-					}
+				if (MemStorage.reply.get(playerName) == null) {
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_REPLY") + ".");
+					return true;
+				} else if (args.length != 0) {
+					target = Bukkit.getServer().getPlayer(MemStorage.reply.get(playerName));
+					Sender.privatechat(player, target, Utils.getMsg(args, 0, sender));
+					return true;
 				} else {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("REPLY_USAGE"));
+					((Player)sender).chat("/tell " + MemStorage.reply.get(playerName));
 					return true;
 				}
 			} else {
@@ -105,7 +106,8 @@ public class CommandHandler implements CommandExecutor {
 					sender.sendMessage("\u00A7c" + MemStorage.locale.get("EMOTE_USAGE"));
 					return true;
 				} else {
-					Sender.me(player, Format.main(player, Utils.getEMOTE(args, 0, sender), "emote"));
+					String msg = Utils.getMsg(args, 0, sender);
+					Sender.me(player, Format.main(player, msg, "emote"), msg);
 					return true;
 				}
 			} else {
@@ -120,11 +122,18 @@ public class CommandHandler implements CommandExecutor {
 				return true;
 			}
 			if (LiveChat.perms.has(sender, "livechat.local") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
-				if (args.length == 0) {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("LOCAL_USAGE"));
+				if (args.length != 0) {
+					String msg = Utils.getMsg(args, 0, sender);
+					Sender.local(player, Format.main(player, msg, "local"), msg);
+					return true;
+
+				} else if (MemStorage.local.containsKey(playerName)) {
+					MemStorage.local.remove(playerName);
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_LOCAL_CONVERSATION") + ".");
 					return true;
 				} else {
-					Sender.local(player, Format.main(player, Utils.getEMOTE(args, 0, sender), "local"));
+					MemStorage.local.put(playerName, "");
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_LOCAL_CONVERSATION") + ".");
 					return true;
 				}
 			} else {
@@ -255,7 +264,7 @@ public class CommandHandler implements CommandExecutor {
 						Player channelAdminUser = null;
 						channelAdminUser = sender.getServer().getPlayer(channelAdminList[i]);
 						if (channelAdminUser != null) {
-							channelAdminUser.sendMessage(Format.main(player, Utils.getEMOTE(args, 0, sender), "channelAdmin"));
+							channelAdminUser.sendMessage(Format.main(player, Utils.getMsg(args, 0, sender), "channelAdmin"));
 						}
 					}
 					return true;

@@ -9,7 +9,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.gmail.zant95.Format;
 import com.gmail.zant95.LiveChat;
-import com.gmail.zant95.Log;
 import com.gmail.zant95.MemStorage;
 import com.gmail.zant95.PlayerDisplayName;
 import com.gmail.zant95.Sender;
@@ -28,40 +27,30 @@ public class ChatListener implements Listener {
 
 		Player sender = event.getPlayer();
 		String senderName = sender.getName();
-		String senderMsg = event.getMessage();
+		String msg = event.getMessage();
+		PlayerDisplayName.main(sender);
 
 		if (MemStorage.mute.containsKey(sender.getName())) {
 			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_MUTED")+".");
 			return;
-		}
-
-		PlayerDisplayName.main(sender);
-
-		String log = "[" + senderName + "][" + sender.getWorld().getName() + "][x:" + sender.getLocation().getBlockX() + ",y:" + sender.getLocation().getBlockY() + ",z:" + sender.getLocation().getBlockZ() + "]" + event.getMessage();
-
-		if (Utils.isPrivate(senderName)) {
+		} else if (Utils.isPrivate(senderName)) {
 			Player target = Bukkit.getServer().getPlayer(MemStorage.speaker.get(senderName));
 			if (target != null) {
-				Sender.player(sender, target, senderMsg);
+				Sender.privatechat(sender, target, msg);
 				return;
 			} else {
 				sender.sendMessage("\u00A7c"+MemStorage.locale.get("DISCONECTED_USER")+".");
 				return;
 			}
+		} else if (MemStorage.local.containsKey(senderName)) {
+			Sender.local(sender, Format.main(sender, msg, "local"), msg);
+			return;
 		} else if (LiveChat.perms.has(sender, "livechat.chat")) {
-			if (plugin.getConfig().getString("chat-format").equalsIgnoreCase("DISABLED") || plugin.getConfig().getString("chat-format").isEmpty()) {
+			if (MemStorage.conf.getString("public-chat-format").equalsIgnoreCase("DISABLED") || MemStorage.conf.getString("public-chat-format").isEmpty()) {
 				event.setCancelled(false);
-				Log.publicchat(log);
 				return;
 			} else {
-				String string = "\u00A7r" + Format.main(event.getPlayer(), event.getMessage(), "chat");
-				Player[] players = Bukkit.getServer().getOnlinePlayers();
-				for (Player target:players) {
-					if (!Utils.isIgnored(sender, target)) {
-						target.sendMessage(string);
-					}
-				}
-				Log.publicchat(log);
+				Sender.publicchat(sender, msg);
 				return;
 			}
 		} else {
