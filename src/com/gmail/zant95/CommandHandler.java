@@ -237,6 +237,7 @@ public class CommandHandler implements CommandExecutor {
 			if ((args.length == 1) && args[0].equalsIgnoreCase("reload")) {
 				if (LiveChat.perms.has(sender, "livechat.admin") || sender.isOp() || Utils.isConsole(sender)) {
 					plugin.reloadConfig();
+					MemStorage.conf = plugin.getConfig();
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("RELOAD_CONFIG"));
 					return true;
 				} else {

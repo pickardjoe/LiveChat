@@ -42,8 +42,7 @@ local-radius: 150
 emote-format: ' * %DISPLAYNAME% %MSG%'
 
 # Remember that Minecraft doesn't support more than 16 characters
-# nicknames, this includes color codes. If the nickname exceeds
-# the limit this option doesn't work :-(
+# nicknames, this includes color codes.
 op-prefix: ''
 
 # Players inside will receive all private messages.
