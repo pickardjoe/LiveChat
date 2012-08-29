@@ -4,8 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.command.CommandExecutor;
 
 public class CommandHandler implements CommandExecutor {
@@ -17,7 +15,6 @@ public class CommandHandler implements CommandExecutor {
 		plugin = instance;
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {	
 		String playerName = null;
 		String targetName = null;
@@ -29,7 +26,7 @@ public class CommandHandler implements CommandExecutor {
 			playerName = player.getName();
 		}
 
-		if (command.getName().equalsIgnoreCase("msg")) {
+		if (command.getName().equalsIgnoreCase("tell") || command.getName().equalsIgnoreCase("msg") || command.getName().equalsIgnoreCase("pm")) {
 			if (Utils.isConsole(sender)) {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
 				return true;

@@ -5,10 +5,16 @@ author: zant95
 softdepend: [Vault]
 description: A complete chat suite for CraftBukkit.
 commands:
-   msg:
+   tell:
       description: Sends a private message to the specified player.
       usage: /<command> <to> <message>
-      aliases: [tell,whisper,pm,lcmsg]
+      aliases: [msg,pm,whisper,lcmsg]
+   msg:
+      description: Aliase for /tell command.
+      usage: /<command> <to> <message>
+   pm:
+      description: Aliase for /tell command.
+      usage: /<command> <to> <message>
    r:
       description: Quickly reply to the last player to message you.
       usage: /<command> <message>
@@ -16,7 +22,7 @@ commands:
    me:
       description: Describes an action in the context of the player.
       usage: /<command> <message>
-      aliases: [action,describe,lcme]
+      aliases: [action,emote,lcme]
    local:
       description: Describes an action in the context of the player.
       usage: /<command> <message>
@@ -30,7 +36,7 @@ commands:
       usage: /<command> <player>
       aliases: [lcblock]
    ignore:
-      description: Block or unblock a player.
+      description: Ignore or unignore a player.
       usage: /<command> <player>
       aliases: [lcignore]
    admin:
