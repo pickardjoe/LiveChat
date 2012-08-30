@@ -103,15 +103,15 @@ public class Format {
 
 	public static String privateTarget(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				.replaceAll(target.getDisplayName(), "\u00A76You")
-				.replaceAll(target.getName(), "\u00A6You");
+				.replaceAll(target.getDisplayName(), ColorTool.main(LiveChat.chat.getPlayerPrefix(target)) + MemStorage.locale.get("YOU"))
+				.replaceAll(target.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}
 
 	public static String privateSender(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				.replaceAll(sender.getDisplayName(), "\u00A76You")
-				.replaceAll(sender.getName(), "\u00A6You");
+				.replaceAll(sender.getDisplayName(), ColorTool.main(LiveChat.chat.getPlayerPrefix(sender)) + MemStorage.locale.get("YOU"))
+				.replaceAll(sender.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}
 }

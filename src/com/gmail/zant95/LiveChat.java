@@ -20,10 +20,6 @@ public class LiveChat extends JavaPlugin {
 	public final ChatListener ChatListener = new ChatListener(this);
 	public final JoinListener JoinListener = new JoinListener(this);
 	public final CommandListener CommandListener = new CommandListener(this);
-
-	protected static Format Format;
-	protected static Locale Locale;
-
 	public static Permission perms = null;
 	public static Chat chat = null;
 
@@ -40,7 +36,6 @@ public class LiveChat extends JavaPlugin {
 		setupChat();
 		
 		//Setup locale
-		Locale = new Locale(this);
 		Locale.load();
 
 		//Setup plugin folder

@@ -230,26 +230,6 @@ public class CommandHandler implements CommandExecutor {
 			}
 		}
 
-		if (command.getName().equalsIgnoreCase("livechat")) {
-			if ((args.length == 1) && args[0].equalsIgnoreCase("reload")) {
-				if (LiveChat.perms.has(sender, "livechat.admin") || sender.isOp() || Utils.isConsole(sender)) {
-					plugin.reloadConfig();
-					MemStorage.conf = plugin.getConfig();
-					sender.sendMessage("\u00A7e" + MemStorage.locale.get("RELOAD_CONFIG"));
-					return true;
-				} else {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
-					return true;
-				}
-			} else {
-				sender.sendMessage("\u00A77-----------------------\u00A76Live\u00A79Chat\u00A77-----------------------");
-				sender.sendMessage("\u00A77 * \u00A76A complete chat suite by \u00A7e" + plugin.getDescription().getAuthors() + "\u00A76.");
-				sender.sendMessage("\u00A77 * \u00A76Version: \u00A7e" + plugin.getDescription().getVersion());
-				sender.sendMessage("\u00A77-----------------------------------------------------");
-				return true;
-			}
-		}
-
 		if (command.getName().equalsIgnoreCase("admin")) {
 			if (Utils.isConsole(sender)) {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
@@ -272,6 +252,26 @@ public class CommandHandler implements CommandExecutor {
 				}
 			} else {
 				sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_USAGE") + ".");
+				return true;
+			}
+		}
+
+		if (command.getName().equalsIgnoreCase("livechat")) {
+			if ((args.length == 1) && args[0].equalsIgnoreCase("reload")) {
+				if (LiveChat.perms.has(sender, "livechat.admin") || sender.isOp() || Utils.isConsole(sender)) {
+					plugin.reloadConfig();
+					MemStorage.conf = plugin.getConfig();
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("RELOAD_CONFIG"));
+					return true;
+				} else {
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
+					return true;
+				}
+			} else {
+				sender.sendMessage("\u00A77-----------------------\u00A76Live\u00A79Chat\u00A77-----------------------");
+				sender.sendMessage("\u00A77 * \u00A76A complete chat suite by \u00A7e" + plugin.getDescription().getAuthors() + "\u00A76.");
+				sender.sendMessage("\u00A77 * \u00A76Version: \u00A7e" + plugin.getDescription().getVersion());
+				sender.sendMessage("\u00A77-----------------------------------------------------");
 				return true;
 			}
 		}

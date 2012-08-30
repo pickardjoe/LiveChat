@@ -5,27 +5,22 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Locale {
-	LiveChat plugin;
-	
-	public Locale(LiveChat plugin) {
-		this.plugin = plugin;
-	}
-
-	public Properties getLocale() throws IOException {
+	public static Properties getLocale() throws IOException {
 		Properties localeFile = new Properties();
-		InputStream inputStream = plugin.getClass().getClassLoader().getResourceAsStream("locales/messages.properties");
+		InputStream inputStream = MemStorage.plugin.getClass().getClassLoader().getResourceAsStream("locales/messages_" + MemStorage.conf.getString("default-locale") + ".properties");
 		localeFile.load(inputStream);
 		return localeFile;
 	}
 
-	public String getText(String name) {
+	public static String getText(String name) {
 		try {
 			return getLocale().getProperty(name);
 		} catch (IOException e) {}
 			return "Unexpected error :-(";
 	}
 	
-	public void load() {
+	public static void load() {
+		MemStorage.locale.put("YOU", getText("YOU"));
 		MemStorage.locale.put("NOT_AS_CONSOLE", getText("NOT_AS_CONSOLE"));
 		MemStorage.locale.put("PLAYER_NOT_FOUND", getText("PLAYER_NOT_FOUND"));
 		MemStorage.locale.put("SPEAK_PERMISSION", getText("SPEAK_PERMISSION"));
