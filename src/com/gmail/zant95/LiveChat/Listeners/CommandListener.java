@@ -1,4 +1,4 @@
-package com.gmail.zant95.Listeners;
+package com.gmail.zant95.LiveChat.Listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,10 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
-import com.gmail.zant95.LiveChat;
-import com.gmail.zant95.Log;
-import com.gmail.zant95.MemStorage;
-import com.gmail.zant95.PlayerDisplayName;
+import com.gmail.zant95.LiveChat.LiveChat;
+import com.gmail.zant95.LiveChat.Log;
+import com.gmail.zant95.LiveChat.MemStorage;
+import com.gmail.zant95.LiveChat.PlayerDisplayName;
 
 public class CommandListener implements Listener{
 	LiveChat plugin;

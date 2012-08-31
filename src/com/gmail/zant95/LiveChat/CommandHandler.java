@@ -1,4 +1,4 @@
-package com.gmail.zant95;
+package com.gmail.zant95.LiveChat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -15,7 +15,7 @@ public class CommandHandler implements CommandExecutor {
 		plugin = instance;
 	}
 
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {	
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String playerName = null;
 		String targetName = null;
 		Player target = null;

@@ -1,4 +1,4 @@
-package com.gmail.zant95;
+package com.gmail.zant95.LiveChat;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,11 +10,11 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import org.mcstats.Metrics;
 
-import com.gmail.zant95.Listeners.ChatListener;
-import com.gmail.zant95.Listeners.CommandListener;
-import com.gmail.zant95.Listeners.JoinListener;
+import com.gmail.zant95.LiveChat.Listeners.ChatListener;
+import com.gmail.zant95.LiveChat.Listeners.CommandListener;
+import com.gmail.zant95.LiveChat.Listeners.JoinListener;
+import com.gmail.zant95.LiveChat.Metrics.Metrics;
 
 public class LiveChat extends JavaPlugin {
 	public final ChatListener ChatListener = new ChatListener(this);

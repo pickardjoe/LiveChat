@@ -1,4 +1,4 @@
-package com.gmail.zant95;
+package com.gmail.zant95.LiveChat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

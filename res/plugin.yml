@@ -1,5 +1,5 @@
 name: LiveChat
-main: com.gmail.zant95.LiveChat
+main: com.gmail.zant95.LiveChat.LiveChat
 version: 1.0.0
 author: zant95
 softdepend: [Vault]

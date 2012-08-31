@@ -1,12 +1,12 @@
-package com.gmail.zant95.Listeners;
+package com.gmail.zant95.LiveChat.Listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.gmail.zant95.LiveChat;
-import com.gmail.zant95.PlayerDisplayName;
+import com.gmail.zant95.LiveChat.LiveChat;
+import com.gmail.zant95.LiveChat.PlayerDisplayName;
 
 public class JoinListener implements Listener {
 	LiveChat plugin;

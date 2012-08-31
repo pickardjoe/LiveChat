@@ -1,4 +1,4 @@
-package com.gmail.zant95;
+package com.gmail.zant95.LiveChat;
 
 import java.util.HashMap;
 
