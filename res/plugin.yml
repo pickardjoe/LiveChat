@@ -47,63 +47,63 @@ commands:
       description: Main command of plugin LiveChat.
       usage: /<command>
 permissions:
-    livechat.chat:
-        description: Allows you to send a public message.
-        default: true
-    livechat.chat.color:
-        description: Allows you to color your chat messages.
-        default: true
-    livechat.chat.format:
-        description: Allows you to format your chat messages.
-        default: false
-    livechat.chat.magic:
-        description: Allows you to use the matrix/magic color in your chat messages.
-        default: false
-    livechat.msg:
-        description: Allows you to send a private message.
-        default: true
-    livechat.msg.color:
-        description: Allows you to color your private messages.
-        default: true
-    livechat.msg.format:
-        description: Allows you to format your private messages.
-        default: false
-    livechat.msg.magic:
-        description: Allows you to use the matrix/magic color in your private messages.
-        default: false
-    livechat.me:
-        description: Allows you to emote.
-        default: true
-    livechat.me.color:
-        description: Allows you to color your emote messages.
-        default: true
-    livechat.me.format:
-        description: Allows you to format your emote messages.
-        default: false
-    livechat.me.magic:
-        description: Allows you to use the matrix/magic color in your emote messages.
-        default: false
-    livechat.local:
-        description: Allows you to send a local message.
-        default: true
-    livechat.local.color:
-        description: Allows you to color your local messages.
-        default: true
-    livechat.local.format:
-        description: Allows you to format your local messages.
-        default: false
-    livechat.local.magic:
-        description: Allows you to use the matrix/magic color in your local messages.
-        default: false
-    livechat.ignore:
-        description: Allows you to ignore or unignore a player.
-        default: true
-    livechat.mute:
-        description: Allows you to mutes or unmutes a player.
-        default: false
-    livechat.block:
-        description: Allows you to block or unblock a player.
-        default: false
-    livechat.admin:
-        description: Gives you absolutely power over LiveChat.
-        default: false
+   livechat.chat:
+      description: Allows you to send a public message.
+      default: true
+   livechat.chat.color:
+      description: Allows you to color your chat messages.
+      default: true
+   livechat.chat.format:
+      description: Allows you to format your chat messages.
+      default: false
+   livechat.chat.magic:
+      description: Allows you to use the matrix/magic color in your chat messages.
+      default: false
+   livechat.msg:
+      description: Allows you to send a private message.
+      default: true
+   livechat.msg.color:
+      description: Allows you to color your private messages.
+      default: true
+   livechat.msg.format:
+      description: Allows you to format your private messages.
+      default: false
+   livechat.msg.magic:
+      description: Allows you to use the matrix/magic color in your private messages.
+      default: false
+   livechat.me:
+      description: Allows you to emote.
+      default: true
+   livechat.me.color:
+      description: Allows you to color your emote messages.
+      default: true
+   livechat.me.format:
+      description: Allows you to format your emote messages.
+      default: false
+   livechat.me.magic:
+      description: Allows you to use the matrix/magic color in your emote messages.
+      default: false
+   livechat.local:
+      description: Allows you to send a local message.
+      default: true
+   livechat.local.color:
+      description: Allows you to color your local messages.
+      default: true
+   livechat.local.format:
+      description: Allows you to format your local messages.
+      default: false
+   livechat.local.magic:
+      description: Allows you to use the matrix/magic color in your local messages.
+      default: false
+   livechat.ignore:
+      description: Allows you to ignore or unignore a player.
+      default: true
+   livechat.mute:
+      description: Allows you to mutes or unmutes a player.
+      default: false
+   livechat.block:
+      description: Allows you to block or unblock a player.
+      default: false
+   livechat.admin:
+      description: Gives you absolutely power over LiveChat.
+      default: false

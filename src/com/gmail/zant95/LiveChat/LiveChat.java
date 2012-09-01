@@ -71,7 +71,7 @@ public class LiveChat extends JavaPlugin {
 		} catch (IOException e) { //Failed to submit the stats :-(
 			System.out.println("Error submitting stats!");
 		}
-		
+
 		//Implement commands
 		getCommand("tell").setExecutor(new CommandHandler(this));
 		getCommand("msg").setExecutor(new CommandHandler(this));
