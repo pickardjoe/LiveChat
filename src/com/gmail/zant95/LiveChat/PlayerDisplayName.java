@@ -12,7 +12,6 @@ public class PlayerDisplayName {
 		String customName = ColorTool.main(playerPrefix) + player.getName();
 		ChatColor opPrefix = ColorTool.main(MemStorage.plugin.getConfig().getString("op-prefix"));
 		String opName = opPrefix + player.getName();
-		
 		if (playerPrefix == groupPrefix) {
 			if (player.isOp() && opPrefix != null) {
 				if (opName.length() > 16) {
@@ -33,6 +32,7 @@ public class PlayerDisplayName {
 			} else {
 				player.setPlayerListName(customName);
 				player.setDisplayName(customName + ChatColor.RESET);
+				return;
 			}
 		} else if (normalName.length() > 16) {
 			String normalNameTab = normalName.substring(0, normalName.charAt(15) == '\u00a7' ? 15 : 16);
@@ -42,6 +42,7 @@ public class PlayerDisplayName {
 		} else {
 			player.setPlayerListName(normalName);
 			player.setDisplayName(normalName + ChatColor.RESET);
+			return;
 		}
 	}
 }

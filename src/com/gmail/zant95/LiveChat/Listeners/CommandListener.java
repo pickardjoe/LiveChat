@@ -34,7 +34,6 @@ public class CommandListener implements Listener{
 			return;
 		}
 
-		
 		PlayerDisplayName.main(sender);
 		Log.command("[" + sender.getName() + "] " + event.getMessage());
 	}

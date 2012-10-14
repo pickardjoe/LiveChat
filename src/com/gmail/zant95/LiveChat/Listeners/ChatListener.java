@@ -32,30 +32,23 @@ public class ChatListener implements Listener {
 
 		if (MemStorage.mute.containsKey(sender.getName())) {
 			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_MUTED")+".");
-			return;
 		} else if (Utils.isPrivate(senderName)) {
 			Player target = Bukkit.getServer().getPlayer(MemStorage.speaker.get(senderName));
 			if (target != null) {
 				Sender.privatechat(sender, target, msg);
-				return;
 			} else {
 				sender.sendMessage("\u00A7c"+MemStorage.locale.get("DISCONECTED_USER")+".");
-				return;
 			}
 		} else if (MemStorage.local.containsKey(senderName)) {
 			Sender.local(sender, Format.main(sender, msg, "local"), msg);
-			return;
 		} else if (LiveChat.perms.has(sender, "livechat.chat")) {
 			if (MemStorage.conf.getString("public-chat-format").equalsIgnoreCase("DISABLED") || MemStorage.conf.getString("public-chat-format").isEmpty()) {
 				event.setCancelled(false);
-				return;
 			} else {
 				Sender.publicchat(sender, msg);
-				return;
 			}
 		} else {
 			sender.sendMessage("\u00A7c"+MemStorage.locale.get("SPEAK_PERMISSION")+".");
-			return;
 		}
 	}
 }

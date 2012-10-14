@@ -12,14 +12,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 import com.gmail.zant95.LiveChat.Listeners.ChatListener;
-import com.gmail.zant95.LiveChat.Listeners.CommandListener;
 import com.gmail.zant95.LiveChat.Listeners.JoinListener;
+import com.gmail.zant95.LiveChat.Listeners.CommandListener;
+import com.gmail.zant95.LiveChat.Listeners.TagListener;
 import com.gmail.zant95.LiveChat.Metrics.Metrics;
 
 public class LiveChat extends JavaPlugin {
 	public final ChatListener ChatListener = new ChatListener(this);
 	public final JoinListener JoinListener = new JoinListener(this);
 	public final CommandListener CommandListener = new CommandListener(this);
+	public final TagListener TagListener = new TagListener(this);
 	public static Permission perms = null;
 	public static Chat chat = null;
 
@@ -29,12 +31,11 @@ public class LiveChat extends JavaPlugin {
 		if (getServer().getPluginManager().getPlugin("Vault") == null) {
 			this.getLogger().info("Vault dependency not found!");
 			getServer().getPluginManager().disablePlugin(this);
-			return;
 		}
 
 		setupPermissions();
 		setupChat();
-		
+
 		//Setup locale
 		Locale.load();
 
@@ -65,6 +66,15 @@ public class LiveChat extends JavaPlugin {
 		pm.registerEvents(JoinListener, this);
 		pm.registerEvents(CommandListener, this);
 
+		//Setup TagAPI
+		if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
+			if (!MemStorage.conf.getBoolean("color-head-tag")) {
+				this.getLogger().info("TagAPI not found. Colors can't be displayed over people's heads!");
+			}
+		} else {
+			pm.registerEvents(TagListener, this);
+		}
+
 		//Implement Plugin Metrics
 		try {
 			Metrics metrics = new Metrics(this); metrics.start();
@@ -93,15 +103,19 @@ public class LiveChat extends JavaPlugin {
 		this.getLogger().info("Goodbye LiveChat!");
 	}
 
-	private boolean setupChat() {
-		RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-		chat = rsp.getProvider();
-		return chat != null;
+	private boolean setupPermissions() {
+		RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+		if (permissionProvider != null) {
+			perms = permissionProvider.getProvider();
+		}
+		return (perms != null);
 	}
 
-	private boolean setupPermissions() {
-		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-		perms = rsp.getProvider();
-		return perms != null;
+	private boolean setupChat() {
+		RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
+		if (chatProvider != null) {
+			chat = chatProvider.getProvider();
+		}
+		return (chat != null);
 	}
 }
