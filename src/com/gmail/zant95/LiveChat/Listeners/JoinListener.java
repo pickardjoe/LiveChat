@@ -15,7 +15,7 @@ public class JoinListener implements Listener {
 		plugin = instance;
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		PlayerDisplayName.main(event.getPlayer());
 	}
