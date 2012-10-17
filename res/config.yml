@@ -74,4 +74,4 @@ console-debug-commands: false
 default-locale: 'en'
 
 # DON'T CHANGE THIS VALUE!
-version: '1.0.0'
+version: '1.1.0'
