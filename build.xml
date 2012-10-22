@@ -4,7 +4,7 @@
 	<property name="serverdir" location="C:\Users\Zant\BukkitTestServer" />
 	<property name="src" location="src" />
 	<property name="bin" location="bin" />
-	<property name="lib" location="lib" />
+	<property name="lib" location="../Bukkit-Libs" />
 	<property name="res" location="res" />
 
 	<path id="classpath">
