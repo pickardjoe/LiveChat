@@ -24,7 +24,7 @@ commands:
       usage: /<command> <message>
       aliases: [action,emote,lcme]
    local:
-      description: Describes an action in the context of the player.
+      description: Send a message in a specific radius.
       usage: /<command> <message>
       aliases: [lclocal]
    mute:
