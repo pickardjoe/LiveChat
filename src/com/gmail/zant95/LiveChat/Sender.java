@@ -8,7 +8,7 @@ public class Sender {
 		String string = "\u00A7r" + Format.main(sender, msg, "public");
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
-			if (!Utils.isIgnored(sender, target)) {
+			if (!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass")) {
 				target.sendMessage(string);
 			}
 		}
@@ -19,7 +19,7 @@ public class Sender {
 		if (MemStorage.mute.containsKey(sender.getName())) {
 			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_MUTED")+".");
 			return;
-		} else if (Utils.isIgnored(sender, target)) {
+		} else if (!(!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
 			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_IGNORED")+".");
 			return;
 		}
@@ -37,7 +37,7 @@ public class Sender {
 		}
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
-			if (!Utils.isIgnored(sender, target)) {
+			if (!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass")) {
 				target.sendMessage(msg);
 			}
 		}
@@ -51,7 +51,7 @@ public class Sender {
 		}
 		Player[] players = sender.getWorld().getPlayers().toArray(new Player[0]);
 		for (int i = 0; i < players.length; i++) {
-			if (players[i].getLocation().distance(sender.getLocation()) < MemStorage.plugin.getConfig().getInt("local-radius") && !Utils.isIgnored(sender, players[i])) {
+			if (players[i].getLocation().distance(sender.getLocation()) < MemStorage.plugin.getConfig().getInt("local-radius") && (!Utils.isIgnored(sender, players[i]) || LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
 				players[i].sendMessage(msg);
 				Log.publicchat("[" + sender.getName() + "][Local] " + log);
 			}

@@ -40,43 +40,43 @@ public class Format {
 				.replaceAll("(?i)%MSG%", msg);
 
 		if (type == "public") {
-			if (LiveChat.perms.has(player, "livechat.chat.color")) {
+			if (LiveChat.perms.has(player, "livechat.chat.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.chat.format")) {
+			if (LiveChat.perms.has(player, "livechat.chat.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.chat.magic")) {
+			if (LiveChat.perms.has(player, "livechat.chat.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([kK])", "\u00A7$1");
 			}
 		} else if (type == "private") {
-			if (LiveChat.perms.has(player, "livechat.msg.color")) {
+			if (LiveChat.perms.has(player, "livechat.msg.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.msg.format")) {
+			if (LiveChat.perms.has(player, "livechat.msg.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.msg.magic")) {
+			if (LiveChat.perms.has(player, "livechat.msg.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([kK])", "\u00A7$1");
 			}
 		} else if (type == "local") {
-			if (LiveChat.perms.has(player, "livechat.local.color")) {
+			if (LiveChat.perms.has(player, "livechat.local.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.local.format")) {
+			if (LiveChat.perms.has(player, "livechat.local.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.local.magic")) {
+			if (LiveChat.perms.has(player, "livechat.local.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([kK])", "\u00A7$1");
 			}
 		} else if (type == "emote") {
-			if (LiveChat.perms.has(player, "livechat.me.color")) {
+			if (LiveChat.perms.has(player, "livechat.me.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.me.format")) {
+			if (LiveChat.perms.has(player, "livechat.me.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
 			}
-			if (LiveChat.perms.has(player, "livechat.me.magic")) {
+			if (LiveChat.perms.has(player, "livechat.me.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = format.replaceAll("&([kK])", "\u00A7$1");
 			}
 		} else if (type == "channelAdmin") {
