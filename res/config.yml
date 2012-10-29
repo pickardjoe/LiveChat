@@ -54,7 +54,7 @@ socialspy-players: ''
 socialspy-format: '&6 + &7[%DISPLAYNAME% &7-> %TARGETDISPLAYNAME%&7] &r%MSG%'
 socialspy-msg-color: true
 
-# Players inside will be able to talk on the channel admin.
+# Players inside will be able to talk on the admin channel.
 # Comma-separated names.
 channel-admin-players: ''
 channel-admin-format: '&7[&4Admin&7] &c%NAME%&7: &r%MSG%'
@@ -74,4 +74,4 @@ console-debug-commands: false
 default-locale: 'en'
 
 # DON'T CHANGE THIS VALUE!
-version: '1.1.0'
+version: '1.1.2'

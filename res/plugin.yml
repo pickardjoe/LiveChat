@@ -16,11 +16,11 @@ commands:
       description: Aliase for /tell command.
       usage: /<command> <to> <message>
    r:
-      description: Quickly reply to the last player to message you.
+      description: Quickly reply the last player messaged you.
       usage: /<command> <message>
       aliases: [reply,lcreply]
    me:
-      description: Describes an action in the context of the player.
+      description: Describes an action on the player's context.
       usage: /<command> <message>
       aliases: [action,emote,lcme]
    local:
@@ -99,10 +99,10 @@ permissions:
       description: Allows you to ignore or unignore a player.
       default: true
    livechat.ignore.bypass:
-      description: Anybody can ignore that player.
+      description: Anybody can't ignore you.
       default: false
    livechat.mute:
-      description: Allows you to mutes or unmutes a player.
+      description: Allows you to mute or unmute a player.
       default: false
    livechat.block:
       description: Allows you to block or unblock a player.
