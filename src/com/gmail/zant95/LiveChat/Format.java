@@ -1,5 +1,6 @@
 package com.gmail.zant95.LiveChat;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Format {
@@ -35,54 +36,54 @@ public class Format {
 				.replaceAll("(?i)%FOOD%", Integer.toString(player.getFoodLevel()))
 				.replaceAll("(?i)%LEVEL%", Integer.toString(player.getLevel()))
 				.replaceAll("(?i)%TOTALXP%", Integer.toString(player.getTotalExperience()))
-				.replaceAll("(?i)%TIME%", time)
-				.replaceAll("&([a-fk-or0-9])", "\u00A7$1")
-				.replaceAll("(?i)%MSG%", msg);
+				.replaceAll("(?i)%TIME%", time);
+		format = FormatTool.all(format);
+		format = format.replaceAll("(?i)%MSG%", msg);
 
 		if (type == "public") {
 			if (LiveChat.perms.has(player, "livechat.chat.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
+				format = FormatTool.color(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.chat.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
+				format = FormatTool.format(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.chat.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([kK])", "\u00A7$1");
+				format = FormatTool.magic(format);
 			}
 		} else if (type == "private") {
 			if (LiveChat.perms.has(player, "livechat.msg.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
+				format = FormatTool.color(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.msg.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
+				format = FormatTool.format(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.msg.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([kK])", "\u00A7$1");
+				format = FormatTool.magic(format);
 			}
 		} else if (type == "local") {
 			if (LiveChat.perms.has(player, "livechat.local.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
+				format = FormatTool.color(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.local.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
+				format = FormatTool.format(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.local.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([kK])", "\u00A7$1");
+				format = FormatTool.magic(format);
 			}
 		} else if (type == "emote") {
 			if (LiveChat.perms.has(player, "livechat.me.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
+				format = FormatTool.color(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.me.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([l-oL-OrR])", "\u00A7$1");
+				format = FormatTool.format(format);
 			}
 			if (LiveChat.perms.has(player, "livechat.me.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
-				format = format.replaceAll("&([kK])", "\u00A7$1");
+				format = FormatTool.magic(format);
 			}
 		} else if (type == "channelAdmin") {
-			format = format.replaceAll("&([a-fk-or0-9])", "\u00A7$1");
+			format = FormatTool.all(format);
 		} else if (type == "socialSpy" && MemStorage.conf.getBoolean("socialspy-msg-color")) {
-			format = format.replaceAll("&([a-fk-or0-9])", "\u00A7$1");
+			format = FormatTool.all(format);
 		}
 
 		return format;
@@ -96,21 +97,21 @@ public class Format {
 		}
 
 		format = format
-				.replaceAll("(?i)%TARGETDISPLAYNAME%", target.getDisplayName() + "\u00A7r")
+				.replaceAll("(?i)%TARGETDISPLAYNAME%", target.getDisplayName() + ChatColor.RESET)
 				.replaceAll("(?i)%TARGETNAME%", target.getName());
 		return format;
 	}
 
 	public static String privateTarget(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				.replaceAll(target.getDisplayName(), ColorTool.main(LiveChat.chat.getPlayerPrefix(target)) + MemStorage.locale.get("YOU"))
+				.replaceAll(target.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(target)) + MemStorage.locale.get("YOU"))
 				.replaceAll(target.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}
 
 	public static String privateSender(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				.replaceAll(sender.getDisplayName(), ColorTool.main(LiveChat.chat.getPlayerPrefix(sender)) + MemStorage.locale.get("YOU"))
+				.replaceAll(sender.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(sender)) + MemStorage.locale.get("YOU"))
 				.replaceAll(sender.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}

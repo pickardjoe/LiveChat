@@ -1,6 +1,5 @@
 package com.gmail.zant95.LiveChat;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class PlayerDisplayName {
@@ -8,41 +7,61 @@ public class PlayerDisplayName {
 		String playerGroup = LiveChat.chat.getPrimaryGroup(player);
 		String playerPrefix = LiveChat.chat.getPlayerPrefix(player);
 		String groupPrefix = LiveChat.chat.getGroupPrefix(player.getWorld(), playerGroup);
-		String normalName = ColorTool.main(groupPrefix) + player.getName();
-		String customName = ColorTool.main(playerPrefix) + player.getName();
-		ChatColor opPrefix = ColorTool.main(MemStorage.plugin.getConfig().getString("op-prefix"));
-		String opName = opPrefix + player.getName();
+		String playerSuffix = LiveChat.chat.getPlayerSuffix(player);
+		String groupSuffix = LiveChat.chat.getGroupSuffix(player.getWorld(), playerGroup);
+
+		String opPrefix = FormatTool.all(MemStorage.plugin.getConfig().getString("op-prefix"));
+		String opSuffix = FormatTool.all(MemStorage.plugin.getConfig().getString("op-suffix"));
+
+		String finalPrefix;
+		String finalSuffix;
+		String finalName;
+		String finalNameTab;
+		int remainChars = 0;
+
 		if (playerPrefix == groupPrefix) {
-			if (player.isOp() && opPrefix != null) {
-				if (opName.length() > 16) {
-					String opNameTab = opName.substring(0, opName.charAt(15) == '\u00a7' ? 15 : 16);
-					player.setPlayerListName(opNameTab);
-					player.setDisplayName(opName + ChatColor.RESET);
-					return;
-				} else {
-					player.setPlayerListName(opName);
-					player.setDisplayName(opName + ChatColor.RESET);
-					return;
-				}
-			} else if (customName.length() > 16) {
-				String customNameTab = customName.substring(0, customName.charAt(15) == '\u00a7' ? 15 : 16);
-				player.setPlayerListName(customNameTab);
-				player.setDisplayName(customName + ChatColor.RESET);
-				return;
+			if (player.isOp() && opPrefix.length() != 0) {
+				finalPrefix = opPrefix;
 			} else {
-				player.setPlayerListName(customName);
-				player.setDisplayName(customName + ChatColor.RESET);
-				return;
+				finalPrefix = FormatTool.all(playerPrefix);
 			}
-		} else if (normalName.length() > 16) {
-			String normalNameTab = normalName.substring(0, normalName.charAt(15) == '\u00a7' ? 15 : 16);
-			player.setPlayerListName(normalNameTab);
-			player.setDisplayName(normalName + ChatColor.RESET);
-			return;
 		} else {
-			player.setPlayerListName(normalName);
-			player.setDisplayName(normalName + ChatColor.RESET);
-			return;
+			finalPrefix = FormatTool.all(groupPrefix);
 		}
+
+		if (playerSuffix == groupSuffix) {
+			if (player.isOp() && opSuffix.length() != 0) {
+				finalSuffix = opSuffix;
+			} else {
+				finalSuffix = FormatTool.all(playerSuffix);
+			}
+		} else {
+			finalSuffix = FormatTool.all(groupSuffix);
+		}
+
+		finalName = finalPrefix + player.getName() + finalSuffix;
+		player.setDisplayName(finalName);
+
+		if (!MemStorage.plugin.getConfig().getBoolean("userlist-prefix")) {
+			finalPrefix = "";
+		}
+
+		if (!MemStorage.plugin.getConfig().getBoolean("userlist-suffix")) {
+			finalSuffix = "";
+		}
+
+		finalName = finalPrefix + player.getName() + finalSuffix;
+
+		if (finalName.length() > 16) {
+			remainChars = finalName.length() - 16;
+		}
+
+		if (remainChars < player.getName().length()) {
+			finalNameTab = finalPrefix + player.getName().substring(0, player.getName().length() - remainChars) + finalSuffix;
+		} else {
+			finalNameTab = finalName.substring(0, finalName.charAt(15) == '\u00a7' ? 15 : 16);
+		}
+
+		player.setPlayerListName(finalNameTab);
 	}
 }

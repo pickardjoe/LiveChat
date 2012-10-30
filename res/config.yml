@@ -34,9 +34,6 @@ public-chat-format: '&7[&6Global&7] %DISPLAYNAME%&7: &r%MSG%'
 # Custom format for private chat.
 private-chat-format: '&7[%DISPLAYNAME% &7>> %TARGETDISPLAYNAME%&7] &r%MSG%'
 
-# Display color tag over people's heads (requires TagAPI).
-color-head-tag: true
-
 # Local message values.
 local-format: '&7[&2Local&7] %DISPLAYNAME%&7: &r%MSG%'
 local-radius: 150
@@ -44,9 +41,17 @@ local-radius: 150
 # Custom format for emotes.
 emote-format: ' * %DISPLAYNAME% %MSG%'
 
+# Display color tag over people's heads (requires TagAPI).
+color-head-tag: true
+
+# Display prefix or suffix on user list:
+userlist-prefix: true
+userlist-suffix: false
+
 # Remember that Minecraft doesn't support more than 16 characters
 # nicknames, this includes color codes.
 op-prefix: ''
+op-suffix: ''
 
 # Players inside will receive all private messages.
 # Comma-separated names.
@@ -74,4 +79,4 @@ console-debug-commands: false
 default-locale: 'en'
 
 # DON'T CHANGE THIS VALUE!
-version: '1.1.2'
+version: '1.1.3'
