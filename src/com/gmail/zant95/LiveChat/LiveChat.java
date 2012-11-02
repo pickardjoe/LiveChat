@@ -89,6 +89,7 @@ public class LiveChat extends JavaPlugin {
 		getCommand("r").setExecutor(new CommandHandler(this));
 		getCommand("me").setExecutor(new CommandHandler(this));
 		getCommand("local").setExecutor(new CommandHandler(this));
+		getCommand("global").setExecutor(new CommandHandler(this));
 		getCommand("mute").setExecutor(new CommandHandler(this));
 		getCommand("block").setExecutor(new CommandHandler(this));
 		getCommand("ignore").setExecutor(new CommandHandler(this));

@@ -1,6 +1,6 @@
 name: LiveChat
 main: com.gmail.zant95.LiveChat.LiveChat
-version: 1.1.3
+version: 1.1.4
 author: zant95
 softdepend: [Vault]
 description: A complete chat suite for CraftBukkit.
@@ -27,6 +27,10 @@ commands:
       description: Send a message in a specific radius.
       usage: /<command> <message>
       aliases: [lclocal]
+   global:
+      description: Send a public message.
+      usage: /<command> <message>
+      aliases: [lcglobal]
    mute:
       description: Mutes or unmutes a player.
       usage: /<command> <player>

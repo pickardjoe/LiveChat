@@ -57,7 +57,7 @@ public class CommandHandler implements CommandExecutor {
 						return true;
 					}
 				} else if (MemStorage.speaker.containsKey(playerName)) {
-					MemStorage.speaker.remove(sender.getName());
+					MemStorage.speaker.remove(playerName);
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("END_CONVERSATION") + ".");
 					return true;
 				} else {
@@ -139,6 +139,28 @@ public class CommandHandler implements CommandExecutor {
 			}
 		}
 
+		if (command.getName().equalsIgnoreCase("global")) {
+			if (Utils.isConsole(sender)) {
+				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
+				return true;
+			}
+			if (LiveChat.perms.has(sender, "livechat.chat") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
+				if (args.length == 0) {
+					MemStorage.speaker.remove(playerName);
+					MemStorage.local.remove(playerName);
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_GLOBAL_CONVERSATION") + ".");
+					return true;
+				} else {
+					String msg = Utils.getMsg(args, 0, sender);
+					Sender.publicchat(player, msg);
+					return true;
+				}
+			} else {
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
+				return true;
+			}
+		}
+
 		if (command.getName().equalsIgnoreCase("mute")) {
 			if (LiveChat.perms.has(sender, "livechat.mute") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 1) {
@@ -149,7 +171,7 @@ public class CommandHandler implements CommandExecutor {
 					if (target == null) {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("PLAYER_NOT_FOUND") + ".");
 						return true;
-					} else if (target.getName() == sender.getName()) {
+					} else if (target.getName() == playerName) {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_WITH_YOURSELF") + ".");
 						return true;
 					} else if (MemStorage.mute.containsKey(target.getName())) {
@@ -178,7 +200,7 @@ public class CommandHandler implements CommandExecutor {
 					if (target == null) {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("PLAYER_NOT_FOUND") + ".");
 						return true;
-					} else if (target.getName() == sender.getName()) {
+					} else if (target.getName() == playerName) {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_WITH_YOURSELF") + ".");
 						return true;
 					} else if (MemStorage.block.containsKey(target.getName())) {
@@ -211,15 +233,15 @@ public class CommandHandler implements CommandExecutor {
 					if (target == null) {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("PLAYER_NOT_FOUND") + ".");
 						return true;
-					} else if (target.getName() == sender.getName()) {
+					} else if (target.getName() == playerName) {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_WITH_YOURSELF") + ".");
 						return true;
 					} else if (Utils.isIgnored(target, (Player)sender)) {
-						MemStorage.ignore.remove(sender.getName() + "." + target.getName());
+						MemStorage.ignore.remove(playerName + "." + target.getName());
 						sender.sendMessage(target.getDisplayName() + " \u00A7e" + MemStorage.locale.get("UNIGNORED_PLAYER") + ".");
 						return true;
 					} else {
-						MemStorage.ignore.put(sender.getName() + "." + target.getName(), "");
+						MemStorage.ignore.put(playerName + "." + target.getName(), "");
 						sender.sendMessage(target.getDisplayName() + " \u00A7e" + MemStorage.locale.get("IGNORED_PLAYER") + ".");
 						return true;
 					}
@@ -237,7 +259,7 @@ public class CommandHandler implements CommandExecutor {
 			}
 			if (args.length != 0) {
 				String[] channelAdminList = MemStorage.plugin.getConfig().getString("channel-admin-players").replaceAll(" ", "").split(",");
-				if (Utils.containsIgnoreCase(channelAdminList, sender.getName())) {
+				if (Utils.containsIgnoreCase(channelAdminList, playerName)) {
 					for (int i = 0; i < channelAdminList.length; i++ ) {
 						Player channelAdminUser = null;
 						channelAdminUser = sender.getServer().getPlayer(channelAdminList[i]);

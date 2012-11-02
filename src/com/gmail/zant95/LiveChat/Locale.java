@@ -49,6 +49,8 @@ public class Locale {
 		MemStorage.locale.put("YOU_ARE_IGNORED", getText("YOU_ARE_IGNORED"));
 		MemStorage.locale.put("STARTED_LOCAL_CONVERSATION", getText("STARTED_LOCAL_CONVERSATION"));
 		MemStorage.locale.put("ENDED_LOCAL_CONVERSATION", getText("ENDED_LOCAL_CONVERSATION"));
+		MemStorage.locale.put("NOBODY_HEAR", getText("NOBODY_HEAR"));
+		MemStorage.locale.put("STARTED_GLOBAL_CONVERSATION", getText("STARTED_GLOBAL_CONVERSATION"));
 		MemStorage.locale.put("DISCONECTED_USER", getText("DISCONECTED_USER"));
 		MemStorage.locale.put("RELOAD_CONFIG", getText("RELOAD_CONFIG"));
 	}

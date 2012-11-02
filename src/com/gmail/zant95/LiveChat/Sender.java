@@ -17,10 +17,10 @@ public class Sender {
 
 	public static void privatechat(Player sender, Player target, String msg) {
 		if (MemStorage.mute.containsKey(sender.getName())) {
-			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_MUTED")+".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED") + ".");
 			return;
 		} else if (!(!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
-			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_IGNORED")+".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_IGNORED") + ".");
 			return;
 		}
 		target.sendMessage(Format.privateTarget(sender, target, msg, "private"));
@@ -32,7 +32,7 @@ public class Sender {
 
 	public static void me(Player sender, String msg, String log) {
 		if (MemStorage.mute.containsKey(sender.getName())) {
-			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_MUTED")+".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED") + ".");
 			return;
 		}
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
@@ -46,15 +46,22 @@ public class Sender {
 
 	public static void local(Player sender, String msg, String log) {
 		if (MemStorage.mute.containsKey(sender.getName())) {
-			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_MUTED")+".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED") + ".");
 			return;
 		}
+		Boolean heard = false;
 		Player[] players = sender.getWorld().getPlayers().toArray(new Player[0]);
 		for (int i = 0; i < players.length; i++) {
-			if (players[i].getLocation().distance(sender.getLocation()) < MemStorage.plugin.getConfig().getInt("local-radius") && (!Utils.isIgnored(sender, players[i]) || LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
+			if (!players[i].equals(sender) && players[i].getLocation().distance(sender.getLocation()) < MemStorage.plugin.getConfig().getInt("local-radius") && (!Utils.isIgnored(sender, players[i]) || LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
 				players[i].sendMessage(msg);
-				Log.publicchat("[" + sender.getName() + "][Local] " + log);
+				heard = true;
 			}
+		}
+		if (heard) {
+			sender.sendMessage(msg);
+			Log.publicchat("[" + sender.getName() + "][Local] " + log);
+		} else {
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_HEAR") + ".");
 		}
 	}
 
