@@ -31,13 +31,13 @@ public class ChatListener implements Listener {
 		PlayerDisplayName.main(sender);
 
 		if (MemStorage.mute.containsKey(sender.getName())) {
-			sender.sendMessage("\u00A7c"+MemStorage.locale.get("YOU_ARE_MUTED")+".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED") + ".");
 		} else if (Utils.isPrivate(senderName)) {
 			Player target = Bukkit.getServer().getPlayer(MemStorage.speaker.get(senderName));
 			if (target != null) {
 				Sender.privatechat(sender, target, msg);
 			} else {
-				sender.sendMessage("\u00A7c"+MemStorage.locale.get("DISCONECTED_USER")+".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("DISCONECTED_USER") + ".");
 			}
 		} else if (MemStorage.local.containsKey(senderName)) {
 			Sender.local(sender, Format.main(sender, msg, "local"), msg);
@@ -48,7 +48,7 @@ public class ChatListener implements Listener {
 				Sender.publicchat(sender, msg);
 			}
 		} else {
-			sender.sendMessage("\u00A7c"+MemStorage.locale.get("SPEAK_PERMISSION")+".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");
 		}
 	}
 }

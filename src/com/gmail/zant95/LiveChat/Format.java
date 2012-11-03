@@ -22,23 +22,25 @@ public class Format {
 			format = MemStorage.conf.getString("emote-format");
 		} else if (type == "channelAdmin") {
 			format = MemStorage.conf.getString("channel-admin-format");
+		} else {
+			format = "";
 		}
 
 		format = format
-				.replaceAll("(?i)%DISPLAYNAME%", player.getDisplayName())
-				.replaceAll("(?i)%NAME%", player.getName())
-				.replaceAll("(?i)%GROUPNAME%", LiveChat.chat.getPrimaryGroup(player))
-				.replaceAll("(?i)%PREFIX%", LiveChat.chat.getPlayerPrefix(player))
-				.replaceAll("(?i)%SUFFIX%", LiveChat.chat.getPlayerSuffix(player))
-				.replaceAll("(?i)%WORLDNAME%", player.getWorld().getName())
-				.replaceAll("(?i)%GAMEMODE%", player.getGameMode().name())
-				.replaceAll("(?i)%HEALTH%", Integer.toString(player.getHealth()))
-				.replaceAll("(?i)%FOOD%", Integer.toString(player.getFoodLevel()))
-				.replaceAll("(?i)%LEVEL%", Integer.toString(player.getLevel()))
-				.replaceAll("(?i)%TOTALXP%", Integer.toString(player.getTotalExperience()))
-				.replaceAll("(?i)%TIME%", time);
+				.replace("%DISPLAYNAME%", player.getDisplayName())
+				.replace("%NAME%", player.getName())
+				.replace("%GROUPNAME%", LiveChat.chat.getPrimaryGroup(player))
+				.replace("%PREFIX%", LiveChat.chat.getPlayerPrefix(player))
+				.replace("%SUFFIX%", LiveChat.chat.getPlayerSuffix(player))
+				.replace("%WORLDNAME%", player.getWorld().getName())
+				.replace("%GAMEMODE%", player.getGameMode().name())
+				.replace("%HEALTH%", Integer.toString(player.getHealth()))
+				.replace("%FOOD%", Integer.toString(player.getFoodLevel()))
+				.replace("%LEVEL%", Integer.toString(player.getLevel()))
+				.replace("%TOTALXP%", Integer.toString(player.getTotalExperience()))
+				.replace("%TIME%", time);
 		format = FormatTool.all(format);
-		format = format.replaceAll("(?i)%MSG%", msg);
+		format = format.replace("%MSG%", msg);
 
 		if (type == "public") {
 			if (LiveChat.perms.has(player, "livechat.chat.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
