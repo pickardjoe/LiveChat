@@ -7,7 +7,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import com.gmail.zant95.LiveChat.Format;
 import com.gmail.zant95.LiveChat.LiveChat;
 import com.gmail.zant95.LiveChat.MemStorage;
 import com.gmail.zant95.LiveChat.PlayerDisplayName;
@@ -40,9 +39,9 @@ public class ChatListener implements Listener {
 				sender.sendMessage("\u00A7c" + MemStorage.locale.get("DISCONECTED_USER") + ".");
 			}
 		} else if (MemStorage.local.containsKey(senderName)) {
-			Sender.local(sender, Format.main(sender, msg, "local"), msg);
+			Sender.localchat(sender, msg);
 		} else if (LiveChat.perms.has(sender, "livechat.chat")) {
-			if (MemStorage.conf.getString("public-chat-format").equalsIgnoreCase("DISABLED") || MemStorage.conf.getString("public-chat-format").isEmpty()) {
+			if (MemStorage.conf.getString("chat.public.format").equalsIgnoreCase("DISABLED") || MemStorage.conf.getString("chat.public.format").isEmpty()) {
 				event.setCancelled(false);
 			} else {
 				Sender.publicchat(sender, msg);

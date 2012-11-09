@@ -7,7 +7,7 @@ import java.util.Properties;
 public class Locale {
 	public static Properties getLocale() throws IOException {
 		Properties localeFile = new Properties();
-		InputStream inputStream = MemStorage.plugin.getClass().getClassLoader().getResourceAsStream("locales/messages_" + MemStorage.conf.getString("default-locale") + ".properties");
+		InputStream inputStream = MemStorage.plugin.getClass().getClassLoader().getResourceAsStream("locales/messages_" + MemStorage.conf.getString("locale") + ".properties");
 		localeFile.load(inputStream);
 		return localeFile;
 	}

@@ -10,8 +10,8 @@ public class PlayerDisplayName {
 		String playerSuffix = LiveChat.chat.getPlayerSuffix(player);
 		String groupSuffix = LiveChat.chat.getGroupSuffix(player.getWorld(), playerGroup);
 
-		String opPrefix = FormatTool.all(MemStorage.plugin.getConfig().getString("op-prefix"));
-		String opSuffix = FormatTool.all(MemStorage.plugin.getConfig().getString("op-suffix"));
+		String opPrefix = FormatTool.all(MemStorage.plugin.getConfig().getString("op.prefix"));
+		String opSuffix = FormatTool.all(MemStorage.plugin.getConfig().getString("op.suffix"));
 
 		String finalPrefix;
 		String finalSuffix;
@@ -42,11 +42,11 @@ public class PlayerDisplayName {
 		finalName = finalPrefix + player.getName() + finalSuffix;
 		player.setDisplayName(finalName);
 
-		if (!MemStorage.plugin.getConfig().getBoolean("userlist-prefix")) {
+		if (!MemStorage.plugin.getConfig().getBoolean("userlist.display-prefix")) {
 			finalPrefix = "";
 		}
 
-		if (!MemStorage.plugin.getConfig().getBoolean("userlist-suffix")) {
+		if (!MemStorage.plugin.getConfig().getBoolean("userlist.display-suffix")) {
 			finalSuffix = "";
 		}
 

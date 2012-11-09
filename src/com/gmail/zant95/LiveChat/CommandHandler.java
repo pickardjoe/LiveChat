@@ -104,7 +104,7 @@ public class CommandHandler implements CommandExecutor {
 					return true;
 				} else {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.me(player, Format.main(player, msg, "emote"), msg);
+					Sender.emotechat(player, msg);
 					return true;
 				}
 			} else {
@@ -121,7 +121,7 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.local") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.local(player, Format.main(player, msg, "local"), msg);
+					Sender.localchat(player, msg);
 					return true;
 
 				} else if (MemStorage.local.containsKey(playerName)) {
@@ -157,6 +157,27 @@ public class CommandHandler implements CommandExecutor {
 				}
 			} else {
 				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
+				return true;
+			}
+		}
+
+		if (command.getName().equalsIgnoreCase("admin")) {
+			if (Utils.isConsole(sender)) {
+				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
+				return true;
+			}
+			String[] channelAdminList = MemStorage.plugin.getConfig().getString("chat.admin.players").replaceAll(" ", "").split(",");
+			if (Utils.containsIgnoreCase(channelAdminList, sender.getName())) {
+				if (args.length != 0) {
+						String msg = Utils.getMsg(args, 0, sender);
+						Sender.adminchat(player, msg, channelAdminList);
+						return true;
+				} else {
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_USAGE") + ".");
+					return true;
+				}
+			} else {
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_IN_CHANNEL_ADMIN") + ".");
 				return true;
 			}
 		}
@@ -248,32 +269,6 @@ public class CommandHandler implements CommandExecutor {
 				}
 			} else {
 				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
-				return true;
-			}
-		}
-
-		if (command.getName().equalsIgnoreCase("admin")) {
-			if (Utils.isConsole(sender)) {
-				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
-				return true;
-			}
-			if (args.length != 0) {
-				String[] channelAdminList = MemStorage.plugin.getConfig().getString("channel-admin-players").replaceAll(" ", "").split(",");
-				if (Utils.containsIgnoreCase(channelAdminList, playerName)) {
-					for (int i = 0; i < channelAdminList.length; i++ ) {
-						Player channelAdminUser = null;
-						channelAdminUser = sender.getServer().getPlayer(channelAdminList[i]);
-						if (channelAdminUser != null) {
-							channelAdminUser.sendMessage(Format.main(player, Utils.getMsg(args, 0, sender), "channelAdmin"));
-						}
-					}
-					return true;
-				} else {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_IN_CHANNEL_ADMIN") + ".");
-					return true;
-				}
-			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_USAGE") + ".");
 				return true;
 			}
 		}

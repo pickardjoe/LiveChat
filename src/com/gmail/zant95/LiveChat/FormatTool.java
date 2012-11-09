@@ -1,42 +1,40 @@
 package com.gmail.zant95.LiveChat;
 
+import org.bukkit.ChatColor;
+
 public class FormatTool {
 	public static String all(String text) {
-		//return text.replaceAll("&([a-fk-or0-9])", "\u00A7$1");
 		return color(format(magic(text)));
 	}
 
 	public static String color(String text) {
-		//return text.replaceAll("&([a-fA-F0-9])", "\u00A7$1");
-		return text	.replace("&0","\u00A70")
-					.replace("&1","\u00A71")
-					.replace("&2","\u00A72")
-					.replace("&3","\u00A73")
-					.replace("&4","\u00A74")
-					.replace("&5","\u00A75")
-					.replace("&6","\u00A76")
-					.replace("&7","\u00A77")
-					.replace("&8","\u00A78")
-					.replace("&9","\u00A79")
-					.replace("&a","\u00A7a")
-					.replace("&b","\u00A7b")
-					.replace("&c","\u00A7c")
-					.replace("&d","\u00A7d")
-					.replace("&e","\u00A7e")
-					.replace("&f","\u00A7f")
-					.replace("&r","\u00A7r");
+		return text	.replace("&0",ChatColor.BLACK.toString())
+					.replace("&1",ChatColor.DARK_BLUE.toString())
+					.replace("&2",ChatColor.DARK_GREEN.toString())
+					.replace("&3",ChatColor.DARK_AQUA.toString())
+					.replace("&4",ChatColor.DARK_RED.toString())
+					.replace("&5",ChatColor.DARK_PURPLE.toString())
+					.replace("&6",ChatColor.GOLD.toString())
+					.replace("&7",ChatColor.GRAY.toString())
+					.replace("&8",ChatColor.DARK_GRAY.toString())
+					.replace("&9",ChatColor.BLUE.toString())
+					.replace("&a",ChatColor.GREEN.toString())
+					.replace("&b",ChatColor.AQUA.toString())
+					.replace("&c",ChatColor.RED.toString())
+					.replace("&d",ChatColor.LIGHT_PURPLE.toString())
+					.replace("&e",ChatColor.YELLOW.toString())
+					.replace("&f",ChatColor.WHITE.toString())
+					.replace("&r",ChatColor.RESET.toString());
 	}
 
 	public static String format(String text) {
-		//return text.replaceAll("&([l-oL-OrR])", "\u00A7$1");
-		return text	.replace("&l","\u00A7l")
-					.replace("&m","\u00A7m")
-					.replace("&n","\u00A7n")
-					.replace("&o","\u00A70");
+		return text	.replace("&l",ChatColor.BOLD.toString())
+					.replace("&m",ChatColor.STRIKETHROUGH.toString())
+					.replace("&n",ChatColor.UNDERLINE.toString())
+					.replace("&o",ChatColor.ITALIC.toString());
 	}
 
 	public static String magic(String text) {
-		//return text.replaceAll("&([kK])", "\u00A7$1");
-		return text	.replace("&k","\u00A7k");
+		return text	.replace("&k",ChatColor.MAGIC.toString());
 	}
 }

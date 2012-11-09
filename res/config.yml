@@ -1,82 +1,43 @@
-#############################################
-#                                           #
-#          LiveChat config's file           #
-#                                           #
-#############################################
-# You can use all color codes:              #
-# BLACK         &0    | AQUA           &b   #
-# DARK BLUE     &1    | RED            &c   #
-# DARK GREEN    &2    | LIGHT PURPLE   &d   #
-# DARK AQUA     &3    | YELLOW         &e   #
-# DARK RED      &4    | WHITE          &f   #
-# DARK PURPLE   &5    | MAGIC          &k   #
-# GOLD          &6    | BOLD           &l   #
-# GRAY          &7    | STRIKETHROUGH  &m   #
-# DARK GRAY     &8    | UNDERLINE      &n   #
-# BLUE          &9    | ITALIC         &o   #
-# GREEN         &a    | RESET          &r   #
-#############################################
-# Parameters allowed on chat format:        #
-# %DISPLAYNAME%       | %GAMEMODE%          #
-# %NAME%              | %HEALTH%            #
-# %MSG%               | %FOOD%              #
-# %GROUPNAME%         | %LEVEL%             #
-# %PREFIX%            | %TOTALXP%           #
-# %SUFFIX%            | %TARGETDISPLAYNAME% #
-# %WORLDNAME%         | %TARGETNAME%        #
-# %TIME%              |                     #
-#############################################
-
-# If you don't want to use the public LiveChat's chat format change
-# this option to 'DISABLED'.
-public-chat-format: '&7[&6Global&7] %DISPLAYNAME%&7: &r%MSG%'
-
-# Custom format for private chat.
-private-chat-format: '&7[%DISPLAYNAME% &7>> %TARGETDISPLAYNAME%&7] &r%MSG%'
-
-# Local message values.
-local-format: '&7[&2Local&7] %DISPLAYNAME%&7: &r%MSG%'
-local-radius: 150
-
-# Custom format for emotes.
-emote-format: ' * %DISPLAYNAME%&r %MSG%'
-
-# Display color tag over people's heads (requires TagAPI).
-color-head-tag: true
-
-# Display prefix or suffix on user list:
-userlist-prefix: true
-userlist-suffix: false
-
-# Remember that Minecraft doesn't support more than 16 characters
-# nicknames, this includes color codes.
-op-prefix: ''
-op-suffix: ''
-
-# Players inside will receive all private messages.
-# Comma-separated names.
-socialspy-players: ''
-socialspy-format: '&6 + &7[%DISPLAYNAME% &7-> %TARGETDISPLAYNAME%&7] &r%MSG%'
-socialspy-msg-color: true
-
-# Players inside will be able to talk on the admin channel.
-# Comma-separated names.
-channel-admin-players: ''
-channel-admin-format: '&7[&4Admin&7] &c%NAME%&7: &r%MSG%'
-
-# Save this actions on logs folder.
-log-public-chat: true
-log-private-chat: true
-log-commands: true
-
-# Show this actions on console.
-console-debug-public-chat: true
-console-debug-private-chat: true
-console-debug-commands: false
-
-# Default language (available: en, es, se)
-# You need to restart the server!
-default-locale: 'en'
-
-# DON'T CHANGE THIS VALUE!
-version: '1.1.4'
+chat:
+  public:
+    format: '&7[&6Global&7] %DISPLAYNAME%&7: &r%MSG%'
+  private:
+    format: '&7[%DISPLAYNAME% &7>> %TARGETDISPLAYNAME%&7] &r%MSG%'
+  local:
+    format: '&7[&2Local&7] %DISPLAYNAME%&7: &r%MSG%'
+    radius: 150
+  emote:
+    format: ' * %DISPLAYNAME%&r %MSG%'
+  admin:
+    format: '&7[&4Admin&7] &c%NAME%&7: &r%MSG%'
+    players: ''
+  socialspy:
+    format: '&6 + &7[%DISPLAYNAME% &7-> %TARGETDISPLAYNAME%&7] &r%MSG%'
+    players: ''
+    color: false
+op:
+  prefix: ''
+  suffix: ''
+userlist:
+  display-prefix: true
+  display-suffix: false
+head:
+  tag: true
+log:
+  public: true
+  private: true
+  admin: true
+  local: true
+  emote: true
+  commands: true
+console:
+  color: true
+  debug:
+    public: true
+    private: true
+    admin: true
+    local: true
+    emote: true
+    commands: false
+locale: 'en'
+version: '2.0.0'

@@ -35,11 +35,11 @@ public class CommandListener implements Listener{
 		}
 
 		PlayerDisplayName.main(sender);
-		Log.command("[" + sender.getName() + "] " + event.getMessage());
+		Log.main("[" + sender.getName() + "] " + event.getMessage(), "command");
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onServerCommand(ServerCommandEvent event) {
-		Log.command("[CONSOLE] " + event.getCommand());
+		Log.main("[CONSOLE] " + event.getCommand(), "command");
 	}
 }

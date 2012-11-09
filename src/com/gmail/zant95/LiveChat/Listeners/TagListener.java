@@ -18,7 +18,7 @@ public class TagListener implements Listener {
 	//Refresh player head tag
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onNameTag(PlayerReceiveNameTagEvent event) {
-		if (event.getNamedPlayer() != null && MemStorage.conf.getBoolean("color-head-tag")) {
+		if (event.getNamedPlayer() != null && MemStorage.conf.getBoolean("head.tag") && LiveChat.perms.has(event.getNamedPlayer(), "livechat.colortag")) {
 			event.setTag(event.getNamedPlayer().getPlayerListName());
 		}
 	}

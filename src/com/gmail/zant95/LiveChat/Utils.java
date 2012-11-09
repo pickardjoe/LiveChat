@@ -8,14 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.NetServerHandler;
-import net.minecraft.server.Packet20NamedEntitySpawn;
-import net.minecraft.server.Packet29DestroyEntity;
-
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class Utils {
@@ -74,38 +67,6 @@ public class Utils {
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	// For future use. Now >> TagAPI.
-	public static void setTagName(Player player) {
-		Location loc;
-		Location myLoc = player.getLocation();
-		String origName = player.getName();
-		String newName = player.getPlayerListName();
-		double myX = myLoc.getX();
-		double myZ = myLoc.getZ();
-		String myWorld = myLoc.getWorld().getName();
-		double d0;
-		double d1;
-		EntityHuman e = ((CraftPlayer)player).getHandle();
-		Packet29DestroyEntity packet29 = new Packet29DestroyEntity(e.id);
-		Packet20NamedEntitySpawn packet20 = new Packet20NamedEntitySpawn(e);
-		packet20.b = newName;
-		NetServerHandler ns;
-		for(Player pl: MemStorage.plugin.getServer().getOnlinePlayers()) {
-			if(pl.getName().equals(origName))
-				continue;
-			loc = pl.getLocation();
-			if(!myWorld.equals(loc.getWorld().getName()))
-				continue;
-			d0 = loc.getX() - (double) (myX / 32);
-			d1 = loc.getZ() - (double) (myZ / 32);
-			if(d0 >= -512.0D && d0 <= 512.0D && d1 >= -512.0D && d1 <= 512.0D) {
-				ns = ((CraftPlayer)pl).getHandle().netServerHandler;
-				ns.sendPacket(packet29);
-				ns.sendPacket(packet20);
-			}
 		}
 	}
 }

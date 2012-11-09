@@ -10,7 +10,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-
 import com.gmail.zant95.LiveChat.Listeners.ChatListener;
 import com.gmail.zant95.LiveChat.Listeners.JoinListener;
 import com.gmail.zant95.LiveChat.Listeners.CommandListener;
@@ -24,6 +23,8 @@ public class LiveChat extends JavaPlugin {
 	public final TagListener TagListener = new TagListener(this);
 	public static Permission perms = null;
 	public static Chat chat = null;
+
+	private MVCore MVCore;
 
 	@Override
 	public void onEnable() {
@@ -66,9 +67,12 @@ public class LiveChat extends JavaPlugin {
 		pm.registerEvents(JoinListener, this);
 		pm.registerEvents(CommandListener, this);
 
+		//Setup Multiverse-Core
+		this.MVCore = new MVCore(this);
+
 		//Setup TagAPI
 		if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
-			if (!MemStorage.conf.getBoolean("color-head-tag")) {
+			if (!MemStorage.conf.getBoolean("head.tag")) {
 				this.getLogger().info("TagAPI not found. Colors can't be displayed over people's heads!");
 			}
 		} else {
@@ -79,7 +83,7 @@ public class LiveChat extends JavaPlugin {
 		try {
 			Metrics metrics = new Metrics(this); metrics.start();
 		} catch (IOException e) { //Failed to submit the stats :-(
-			System.out.println("Error submitting stats!");
+			this.getLogger().info("Error submitting stats!");
 		}
 
 		//Implement commands
@@ -101,6 +105,7 @@ public class LiveChat extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		this.MVCore.clean();
 		this.getLogger().info("Goodbye LiveChat!");
 	}
 
@@ -118,5 +123,9 @@ public class LiveChat extends JavaPlugin {
 			chat = chatProvider.getProvider();
 		}
 		return (chat != null);
+	}
+	
+	public MVCore getMV() {
+		return this.MVCore;
 	}
 }
