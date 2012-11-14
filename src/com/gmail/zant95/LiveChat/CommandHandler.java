@@ -41,7 +41,7 @@ public class CommandHandler implements CommandExecutor {
 					targetName = target.getName();
 					if (args.length >= 2) {
 						if (targetName != playerName) {
-							Sender.privatechat(player, target, Utils.getMsg(args, 1, sender));
+							Sender.main(player, Utils.getMsg(args, 1, sender), "private:" + target.getName());
 							return true;
 						} else {
 							sender.sendMessage("\u00A7c" + MemStorage.locale.get("TALK_TO_YOURSELF") + ".");
@@ -81,7 +81,7 @@ public class CommandHandler implements CommandExecutor {
 					return true;
 				} else if (args.length != 0) {
 					target = Bukkit.getServer().getPlayer(MemStorage.reply.get(playerName));
-					Sender.privatechat(player, target, Utils.getMsg(args, 0, sender));
+					Sender.main(player, Utils.getMsg(args, 0, sender), "private:" + target.getName());
 					return true;
 				} else {
 					((Player)sender).chat("/tell " + MemStorage.reply.get(playerName));
@@ -100,11 +100,37 @@ public class CommandHandler implements CommandExecutor {
 			}
 			if (LiveChat.perms.has(sender, "livechat.me") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length == 0) {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("EMOTE_USAGE"));
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("EMOTE_USAGE") + ".");
 					return true;
 				} else {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.emotechat(player, msg);
+					Sender.main(player, msg, "emote");
+					return true;
+				}
+			} else {
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
+				return true;
+			}
+		}
+
+		if (command.getName().equalsIgnoreCase("map")) {
+			if (Utils.isConsole(sender)) {
+				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
+				return true;
+			}
+			if (LiveChat.perms.has(sender, "livechat.map") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
+				if (args.length != 0) {
+					String msg = Utils.getMsg(args, 0, sender);
+					Sender.main(player, msg, "map");
+					return true;
+
+				} else if (MemStorage.map.containsKey(playerName)) {
+					MemStorage.map.remove(playerName);
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_MAP_CONVERSATION") + ".");
+					return true;
+				} else {
+					MemStorage.map.put(playerName, "");
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_MAP_CONVERSATION") + ".");
 					return true;
 				}
 			} else {
@@ -121,7 +147,7 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.local") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.localchat(player, msg);
+					Sender.main(player, msg, "local");
 					return true;
 
 				} else if (MemStorage.local.containsKey(playerName)) {
@@ -148,11 +174,13 @@ public class CommandHandler implements CommandExecutor {
 				if (args.length == 0) {
 					MemStorage.speaker.remove(playerName);
 					MemStorage.local.remove(playerName);
+					MemStorage.admin.remove(playerName);
+					MemStorage.map.remove(playerName);
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_GLOBAL_CONVERSATION") + ".");
 					return true;
 				} else {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.publicchat(player, msg);
+					Sender.main(player, msg, "public");
 					return true;
 				}
 			} else {
@@ -166,18 +194,22 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
 				return true;
 			}
-			String[] channelAdminList = MemStorage.plugin.getConfig().getString("chat.admin.players").replaceAll(" ", "").split(",");
-			if (Utils.containsIgnoreCase(channelAdminList, sender.getName())) {
+			if (LiveChat.perms.has(sender, "livechat.admin") || LiveChat.perms.has(sender, "livechat.admin.chat") || sender.isOp()) {
 				if (args.length != 0) {
-						String msg = Utils.getMsg(args, 0, sender);
-						Sender.adminchat(player, msg, channelAdminList);
-						return true;
+					String msg = Utils.getMsg(args, 0, sender);
+					Sender.main(player, msg, "admin");
+					return true;
+				} else if (MemStorage.admin.containsKey(playerName)) {
+					MemStorage.admin.remove(playerName);
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_ADMIN_CONVERSATION") + ".");
+					return true;
 				} else {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_USAGE") + ".");
+					MemStorage.admin.put(playerName, "");
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_ADMIN_CONVERSATION") + ".");
 					return true;
 				}
 			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_IN_CHANNEL_ADMIN") + ".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
 				return true;
 			}
 		}
@@ -185,7 +217,7 @@ public class CommandHandler implements CommandExecutor {
 		if (command.getName().equalsIgnoreCase("mute")) {
 			if (LiveChat.perms.has(sender, "livechat.mute") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 1) {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("MUTE_USAGE"));
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("MUTE_USAGE") + ".");
 					return true;	
 				} else {
 					target = sender.getServer().getPlayer(args[0]);
@@ -214,7 +246,7 @@ public class CommandHandler implements CommandExecutor {
 		if (command.getName().equalsIgnoreCase("block")) {
 			if (LiveChat.perms.has(sender, "livechat.block") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 1) {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("BLOCK_USAGE"));
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("BLOCK_USAGE") + ".");
 					return true;
 				} else {
 					target = sender.getServer().getPlayer(args[0]);
@@ -246,10 +278,7 @@ public class CommandHandler implements CommandExecutor {
 				return true;
 			}
 			if (LiveChat.perms.has(sender, "livechat.ignore") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
-				if (args.length != 1) {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("IGNORE_USAGE"));
-					return true;
-				} else {
+				if (args.length == 1) {
 					target = sender.getServer().getPlayer(args[0]);
 					if (target == null) {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("PLAYER_NOT_FOUND") + ".");
@@ -266,6 +295,44 @@ public class CommandHandler implements CommandExecutor {
 						sender.sendMessage(target.getDisplayName() + " \u00A7e" + MemStorage.locale.get("IGNORED_PLAYER") + ".");
 						return true;
 					}
+				} else if (args.length == 2 && args[0].equalsIgnoreCase("ch")) {
+					if (args[1].equalsIgnoreCase("public")) {
+						if (MemStorage.publicignore.containsKey(sender.getName())) {
+							MemStorage.publicignore.remove(sender.getName());
+							sender.sendMessage("\u00A7e" + MemStorage.locale.get("UNIGNORED_PUBLIC_CHANNEL") + ".");
+							return true;
+						} else {
+							MemStorage.publicignore.put(sender.getName(), "");
+							sender.sendMessage("\u00A7e" + MemStorage.locale.get("IGNORED_PUBLIC_CHANNEL") + ".");
+							return true;
+						}
+					} else if (args[1].equalsIgnoreCase("private")) {
+						if (MemStorage.privateignore.containsKey(sender.getName())) {
+							MemStorage.privateignore.remove(sender.getName());
+							sender.sendMessage("\u00A7e" + MemStorage.locale.get("UNIGNORED_PRIVATE_CHANNEL") + ".");
+							return true;
+						} else {
+							MemStorage.privateignore.put(sender.getName(), "");
+							sender.sendMessage("\u00A7e" + MemStorage.locale.get("IGNORED_PRIVATE_CHANNEL") + ".");
+							return true;
+						}
+					} else if (args[1].equalsIgnoreCase("local")) {
+						if (MemStorage.localignore.containsKey(sender.getName())) {
+							MemStorage.localignore.remove(sender.getName());
+							sender.sendMessage("\u00A7e" + MemStorage.locale.get("UNIGNORED_LOCAL_CHANNEL") + ".");
+							return true;
+						} else {
+							MemStorage.localignore.put(sender.getName(), "");
+							sender.sendMessage("\u00A7e" + MemStorage.locale.get("IGNORED_LOCAL_CHANNEL") + ".");
+							return true;
+						}
+					} else {
+						sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_NOT_EXIST" + "."));
+						return true;
+					}
+				} else {
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("IGNORE_USAGE" + "."));
+					return true;
 				}
 			} else {
 				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");

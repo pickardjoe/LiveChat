@@ -11,7 +11,6 @@ import com.gmail.zant95.LiveChat.LiveChat;
 import com.gmail.zant95.LiveChat.MemStorage;
 import com.gmail.zant95.LiveChat.PlayerDisplayName;
 import com.gmail.zant95.LiveChat.Sender;
-import com.gmail.zant95.LiveChat.Utils;
 
 public class ChatListener implements Listener {
 	LiveChat plugin;
@@ -29,22 +28,20 @@ public class ChatListener implements Listener {
 		String msg = event.getMessage();
 		PlayerDisplayName.main(sender);
 
-		if (MemStorage.mute.containsKey(sender.getName())) {
-			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED") + ".");
-		} else if (Utils.isPrivate(senderName)) {
+		if (MemStorage.speaker.containsKey(senderName)) {
 			Player target = Bukkit.getServer().getPlayer(MemStorage.speaker.get(senderName));
-			if (target != null) {
-				Sender.privatechat(sender, target, msg);
-			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("DISCONECTED_USER") + ".");
-			}
+			Sender.main(sender, msg, "private:" + target.getName());
+		} else if (MemStorage.admin.containsKey(senderName)) {
+			Sender.main(sender, msg, "admin");
 		} else if (MemStorage.local.containsKey(senderName)) {
-			Sender.localchat(sender, msg);
+			Sender.main(sender, msg, "local");
+		} else if (MemStorage.map.containsKey(senderName)) {
+			Sender.main(sender, msg, "map");
 		} else if (LiveChat.perms.has(sender, "livechat.chat")) {
 			if (MemStorage.conf.getString("chat.public.format").equalsIgnoreCase("DISABLED") || MemStorage.conf.getString("chat.public.format").isEmpty()) {
 				event.setCancelled(false);
 			} else {
-				Sender.publicchat(sender, msg);
+				Sender.main(sender, msg, "public");
 			}
 		} else {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");

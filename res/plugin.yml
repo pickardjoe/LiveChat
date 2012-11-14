@@ -8,7 +8,7 @@ commands:
    tell:
       description: Sends a private message to the specified player.
       usage: /<command> <to> <message>
-      aliases: [msg,pm,whisper,lcmsg]
+      aliases: [whisper,lcmsg]
    msg:
       description: Aliase for /tell command.
       usage: /<command> <to> <message>
@@ -23,6 +23,10 @@ commands:
       description: Describes an action on the player's context.
       usage: /<command> <message>
       aliases: [action,emote,lcme]
+   map:
+      description: Send a message in the actual map.
+      usage: /<command> <message>
+      aliases: [lcmap]
    local:
       description: Send a message in a specific radius.
       usage: /<command> <message>
@@ -44,7 +48,7 @@ commands:
       usage: /<command> <player>
       aliases: [lcignore]
    admin:
-      description: Send a message on channel admin.
+      description: Send a message on admin channel.
       usage: /<command> <message>
       aliases: [lcadmin]
    livechat:
@@ -87,6 +91,18 @@ permissions:
    livechat.me.magic:
       description: Allows you to use the matrix/magic color in your emote messages.
       default: false
+   livechat.map:
+      description: Allows you to send a message in the actual map.
+      default: true
+   livechat.map.color:
+      description: Allows you to color your map messages.
+      default: true
+   livechat.map.format:
+      description: Allows you to format your map messages.
+      default: false
+   livechat.map.magic:
+      description: Allows you to use the matrix/magic color in your map messages.
+      default: false
    livechat.local:
       description: Allows you to send a local message.
       default: true
@@ -116,4 +132,7 @@ permissions:
       default: true
    livechat.admin:
       description: Gives you absolutely power over LiveChat.
+      default: false
+   livechat.admin.chat:
+      description: Allows you to talk on admin channel.
       default: false

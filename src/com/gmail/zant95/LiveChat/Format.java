@@ -16,6 +16,8 @@ public class Format {
 			format = MemStorage.conf.getString("chat.private.format");
 		} else if (type == "socialspy") {
 			format = MemStorage.conf.getString("chat.socialspy.format");
+		} else if (type == "map") {
+			format = MemStorage.conf.getString("chat.map.format");
 		} else if (type == "local") {
 			format = MemStorage.conf.getString("chat.local.format");
 		} else if (type == "emote") {
@@ -63,6 +65,16 @@ public class Format {
 			if (LiveChat.perms.has(player, "livechat.msg.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.magic(format);
 			}
+		} else if (type == "map") {
+			if (LiveChat.perms.has(player, "livechat.map.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+				format = FormatTool.color(format);
+			}
+			if (LiveChat.perms.has(player, "livechat.map.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+				format = FormatTool.format(format);
+			}
+			if (LiveChat.perms.has(player, "livechat.map.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+				format = FormatTool.magic(format);
+			}
 		} else if (type == "local") {
 			if (LiveChat.perms.has(player, "livechat.local.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.color(format);
@@ -107,15 +119,15 @@ public class Format {
 
 	public static String privateTarget(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				.replace(target.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(target)) + MemStorage.locale.get("YOU"))
-				.replace(target.getName(), MemStorage.locale.get("YOU"));
+				//.replaceFirst(target.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(target)) + MemStorage.locale.get("YOU"))
+				.replaceFirst(target.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}
 
 	public static String privateSender(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				.replace(sender.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(sender)) + MemStorage.locale.get("YOU"))
-				.replace(sender.getName(), MemStorage.locale.get("YOU"));
+				//.replaceFirst(sender.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(sender)) + MemStorage.locale.get("YOU"))
+				.replaceFirst(sender.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}
 }

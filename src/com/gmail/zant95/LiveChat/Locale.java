@@ -47,10 +47,21 @@ public class Locale {
 		MemStorage.locale.put("IGNORED_PLAYER", getText("IGNORED_PLAYER"));
 		MemStorage.locale.put("UNIGNORED_PLAYER", getText("UNIGNORED_PLAYER"));
 		MemStorage.locale.put("YOU_ARE_IGNORED", getText("YOU_ARE_IGNORED"));
+		MemStorage.locale.put("STARTED_MAP_CONVERSATION", getText("STARTED_MAP_CONVERSATION"));
+		MemStorage.locale.put("ENDED_MAP_CONVERSATION", getText("ENDED_MAP_CONVERSATION"));
 		MemStorage.locale.put("STARTED_LOCAL_CONVERSATION", getText("STARTED_LOCAL_CONVERSATION"));
 		MemStorage.locale.put("ENDED_LOCAL_CONVERSATION", getText("ENDED_LOCAL_CONVERSATION"));
 		MemStorage.locale.put("NOBODY_HEAR", getText("NOBODY_HEAR"));
+		MemStorage.locale.put("STARTED_ADMIN_CONVERSATION", getText("STARTED_ADMIN_CONVERSATION"));
+		MemStorage.locale.put("ENDED_ADMIN_CONVERSATION", getText("ENDED_ADMIN_CONVERSATION"));
 		MemStorage.locale.put("STARTED_GLOBAL_CONVERSATION", getText("STARTED_GLOBAL_CONVERSATION"));
+		MemStorage.locale.put("IGNORED_PUBLIC_CHANNEL", getText("IGNORED_PUBLIC_CHANNEL"));
+		MemStorage.locale.put("UNIGNORED_PUBLIC_CHANNEL", getText("UNIGNORED_PUBLIC_CHANNEL"));
+		MemStorage.locale.put("IGNORED_PRIVATE_CHANNEL", getText("IGNORED_PRIVATE_CHANNEL"));
+		MemStorage.locale.put("UNIGNORED_PRIVATE_CHANNEL", getText("UNIGNORED_PRIVATE_CHANNEL"));
+		MemStorage.locale.put("IGNORED_LOCAL_CHANNEL", getText("IGNORED_LOCAL_CHANNEL"));
+		MemStorage.locale.put("UNIGNORED_LOCAL_CHANNEL", getText("UNIGNORED_LOCAL_CHANNEL"));		
+		MemStorage.locale.put("CHANNEL_NOT_EXIST", getText("CHANNEL_NOT_EXIST"));
 		MemStorage.locale.put("DISCONECTED_USER", getText("DISCONECTED_USER"));
 		MemStorage.locale.put("RELOAD_CONFIG", getText("RELOAD_CONFIG"));
 	}

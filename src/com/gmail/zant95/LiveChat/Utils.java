@@ -37,14 +37,6 @@ public class Utils {
 		}
 	}
 
-	public static boolean isPrivate(String senderName) {
-		if (MemStorage.speaker.containsKey(senderName)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public static boolean containsIgnoreCase(String[] string, String element) {
 		List<String> list = Arrays.asList(string);
 		Iterator<String> it = list.iterator();
