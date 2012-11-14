@@ -49,6 +49,7 @@ public class CommandHandler implements CommandExecutor {
 						}
 					}
 					if (playerName != targetName) {
+						Utils.closeChannels((Player)sender);
 						MemStorage.speaker.put(playerName, targetName);
 						sender.sendMessage("\u00A7e" + MemStorage.locale.get("CONVERSATION_WITH") + " " + target.getDisplayName() + "\u00A7e.");
 						return true;
@@ -129,6 +130,7 @@ public class CommandHandler implements CommandExecutor {
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_MAP_CONVERSATION") + ".");
 					return true;
 				} else {
+					Utils.closeChannels((Player)sender);
 					MemStorage.map.put(playerName, "");
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_MAP_CONVERSATION") + ".");
 					return true;
@@ -149,12 +151,12 @@ public class CommandHandler implements CommandExecutor {
 					String msg = Utils.getMsg(args, 0, sender);
 					Sender.main(player, msg, "local");
 					return true;
-
 				} else if (MemStorage.local.containsKey(playerName)) {
 					MemStorage.local.remove(playerName);
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_LOCAL_CONVERSATION") + ".");
 					return true;
 				} else {
+					Utils.closeChannels((Player)sender);
 					MemStorage.local.put(playerName, "");
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_LOCAL_CONVERSATION") + ".");
 					return true;
@@ -172,10 +174,7 @@ public class CommandHandler implements CommandExecutor {
 			}
 			if (LiveChat.perms.has(sender, "livechat.chat") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length == 0) {
-					MemStorage.speaker.remove(playerName);
-					MemStorage.local.remove(playerName);
-					MemStorage.admin.remove(playerName);
-					MemStorage.map.remove(playerName);
+					Utils.closeChannels((Player)sender);
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_GLOBAL_CONVERSATION") + ".");
 					return true;
 				} else {
@@ -204,6 +203,7 @@ public class CommandHandler implements CommandExecutor {
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_ADMIN_CONVERSATION") + ".");
 					return true;
 				} else {
+					Utils.closeChannels((Player)sender);
 					MemStorage.admin.put(playerName, "");
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_ADMIN_CONVERSATION") + ".");
 					return true;
@@ -327,11 +327,11 @@ public class CommandHandler implements CommandExecutor {
 							return true;
 						}
 					} else {
-						sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_NOT_EXIST" + "."));
+						sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_NOT_EXIST") + ".");
 						return true;
 					}
 				} else {
-					sender.sendMessage("\u00A7c" + MemStorage.locale.get("IGNORE_USAGE" + "."));
+					sender.sendMessage("\u00A7c" + MemStorage.locale.get("IGNORE_USAGE") + ".");
 					return true;
 				}
 			} else {

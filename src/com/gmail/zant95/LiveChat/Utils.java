@@ -21,6 +21,15 @@ public class Utils {
 		return msg;
 	}
 
+	public static void closeChannels(Player player) {
+		String playerName = player.getName();
+		MemStorage.speaker.remove(playerName);
+		MemStorage.local.remove(playerName);
+		MemStorage.admin.remove(playerName);
+		MemStorage.map.remove(playerName);
+		return;
+	}
+
 	public static boolean isConsole(CommandSender sender) {
 		if (sender instanceof Player) {
 			return false;
