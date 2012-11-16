@@ -16,7 +16,8 @@ public class MVCore {
 		if (MV != null) {
 			MultiverseCore multiverse = (MultiverseCore)MV;
 			this.MVWorldManager = multiverse.getMVWorldManager();
-		}	}
+		}
+	}
 
 	public String getAlias(World world) {
 		if ((this.MVWorldManager != null) && (this.MVWorldManager.isMVWorld(world))) {

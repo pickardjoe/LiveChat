@@ -37,9 +37,6 @@ public class LiveChat extends JavaPlugin {
 		setupPermissions();
 		setupChat();
 
-		//Setup locale
-		Locale.load();
-
 		//Setup plugin folder
 		File pluginDir = getDataFolder();
 		if(!pluginDir.exists()) {
@@ -55,11 +52,10 @@ public class LiveChat extends JavaPlugin {
 		}
 
 		//Setup config
-		File config = new File(getDataFolder(), "config.yml");
-		if(!config.exists()) {
-			config.getParentFile().mkdirs();
-			Utils.copy(this.getResource("config.yml"), config);
-		}
+		Config.load();
+
+		//Setup locale
+		Locale.load();
 
 		//Implement listeners
 		PluginManager pm = getServer().getPluginManager();
