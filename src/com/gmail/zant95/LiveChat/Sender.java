@@ -59,11 +59,15 @@ public class Sender {
 
 	private static void localchat(Player sender, String msg) {
 		Boolean heard = false;
-		Player[] players = sender.getWorld().getPlayers().toArray(new Player[0]);
+		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
-			if ((!target.equals(sender) && target.getLocation().distance(sender.getLocation()) < MemStorage.plugin.getConfig().getInt("chat.local.radius") && (!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass"))) && !MemStorage.localignore.containsKey(target.getName())) {
-				target.sendMessage(Format.main(sender, msg, "local"));
-				heard = true;
+			if (!target.equals(sender)) {
+				if ((!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass")) && !MemStorage.localignore.containsKey(target.getName())) {
+					if (sender.getWorld().equals(target.getWorld()) && target.getLocation().distance(sender.getLocation()) < MemStorage.plugin.getConfig().getInt("chat.local.radius")) {
+						target.sendMessage(Format.main(sender, msg, "local"));
+						heard = true;
+					}
+				}
 			}
 		}
 		if (heard) {
