@@ -11,7 +11,7 @@ public class Format {
 		String format = null;
 
 		if (type == "public") {
-			format = MemStorage.conf.getString("chat.public.format");
+			format = MemStorage.conf.getString("chat.global.format");
 		} else if (type == "private") {
 			format = MemStorage.conf.getString("chat.private.format");
 		} else if (type == "socialspy") {
@@ -46,23 +46,23 @@ public class Format {
 		format = format.replace("%MSG%", msg);
 
 		if (type == "public") {
-			if (LiveChat.perms.has(player, "livechat.chat.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.global.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.chat.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.global.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.chat.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.global.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "private") {
-			if (LiveChat.perms.has(player, "livechat.msg.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.private.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.msg.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.private.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.msg.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.private.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "map") {
@@ -86,13 +86,13 @@ public class Format {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "emote") {
-			if (LiveChat.perms.has(player, "livechat.me.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.emote.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.me.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.emote.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.me.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.emote.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "admin") {
@@ -119,14 +119,12 @@ public class Format {
 
 	public static String privateTarget(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				//.replaceFirst(target.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(target)) + MemStorage.locale.get("YOU"))
 				.replaceFirst(target.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}
 
 	public static String privateSender(Player sender, Player target, String msg, String type) {
 		msg = 	Format.withTarget(sender, target, msg, "private")
-				//.replaceFirst(sender.getDisplayName(), FormatTool.all(LiveChat.chat.getPlayerPrefix(sender)) + MemStorage.locale.get("YOU"))
 				.replaceFirst(sender.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}

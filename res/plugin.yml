@@ -1,6 +1,6 @@
 name: LiveChat
 main: com.gmail.zant95.LiveChat.LiveChat
-version: 2.0.1
+version: 2.0.3
 author: zant95
 softdepend: [Vault]
 description: A complete chat suite for CraftBukkit.
@@ -55,40 +55,40 @@ commands:
       description: Main command of plugin LiveChat.
       usage: /<command>
 permissions:
-   livechat.chat:
+   livechat.global:
       description: Allows you to send a public message.
       default: true
-   livechat.chat.color:
+   livechat.global.color:
       description: Allows you to color your chat messages.
       default: true
-   livechat.chat.format:
+   livechat.global.format:
       description: Allows you to format your chat messages.
       default: false
-   livechat.chat.magic:
+   livechat.global.magic:
       description: Allows you to use the matrix/magic color in your chat messages.
       default: false
-   livechat.msg:
+   livechat.private:
       description: Allows you to send a private message.
       default: true
-   livechat.msg.color:
+   livechat.private.color:
       description: Allows you to color your private messages.
       default: true
-   livechat.msg.format:
+   livechat.private.format:
       description: Allows you to format your private messages.
       default: false
-   livechat.msg.magic:
+   livechat.private.magic:
       description: Allows you to use the matrix/magic color in your private messages.
       default: false
-   livechat.me:
+   livechat.emote:
       description: Allows you to emote.
       default: true
-   livechat.me.color:
+   livechat.emote.color:
       description: Allows you to color your emote messages.
       default: true
-   livechat.me.format:
+   livechat.emote.format:
       description: Allows you to format your emote messages.
       default: false
-   livechat.me.magic:
+   livechat.emote.magic:
       description: Allows you to use the matrix/magic color in your emote messages.
       default: false
    livechat.map:
@@ -132,7 +132,4 @@ permissions:
       default: true
    livechat.admin:
       description: Gives you absolutely power over LiveChat.
-      default: false
-   livechat.admin.chat:
-      description: Allows you to talk on admin channel.
       default: false

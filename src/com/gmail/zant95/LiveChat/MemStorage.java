@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
 public class MemStorage {
+	public static HashMap<String, String> global = new HashMap<String, String>();
 	public static HashMap<String, String> speaker = new HashMap<String, String>();
 	public static HashMap<String, String> map = new HashMap<String, String>();
 	public static HashMap<String, String> local = new HashMap<String, String>();

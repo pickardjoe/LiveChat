@@ -23,6 +23,7 @@ public class Utils {
 
 	public static void closeChannels(Player player) {
 		String playerName = player.getName();
+		MemStorage.global.remove(playerName);
 		MemStorage.speaker.remove(playerName);
 		MemStorage.local.remove(playerName);
 		MemStorage.admin.remove(playerName);

@@ -37,7 +37,7 @@ public class Locale {
 		MemStorage.locale.put("BLOCK_USAGE", getText("BLOCK_USAGE"));
 		MemStorage.locale.put("IGNORE_USAGE", getText("IGNORE_USAGE"));
 		MemStorage.locale.put("CHANNEL_USAGE", getText("CHANNEL_USAGE"));
-		MemStorage.locale.put("NOT_IN_CHANNEL_ADMIN", getText("NOT_IN_CHANNEL_ADMIN"));
+		MemStorage.locale.put("CHANNEL_NOT_FOUND", getText("CHANNEL_NOT_FOUND"));
 		MemStorage.locale.put("MUTED_PLAYER", getText("MUTED_PLAYER"));
 		MemStorage.locale.put("UNMUTED_PLAYER", getText("UNMUTED_PLAYER"));
 		MemStorage.locale.put("YOU_ARE_MUTED", getText("YOU_ARE_MUTED"));
@@ -55,6 +55,7 @@ public class Locale {
 		MemStorage.locale.put("STARTED_ADMIN_CONVERSATION", getText("STARTED_ADMIN_CONVERSATION"));
 		MemStorage.locale.put("ENDED_ADMIN_CONVERSATION", getText("ENDED_ADMIN_CONVERSATION"));
 		MemStorage.locale.put("STARTED_GLOBAL_CONVERSATION", getText("STARTED_GLOBAL_CONVERSATION"));
+		MemStorage.locale.put("ENDED_GLOBAL_CONVERSATION", getText("ENDED_GLOBAL_CONVERSATION"));
 		MemStorage.locale.put("IGNORED_PUBLIC_CHANNEL", getText("IGNORED_PUBLIC_CHANNEL"));
 		MemStorage.locale.put("UNIGNORED_PUBLIC_CHANNEL", getText("UNIGNORED_PUBLIC_CHANNEL"));
 		MemStorage.locale.put("IGNORED_PRIVATE_CHANNEL", getText("IGNORED_PRIVATE_CHANNEL"));

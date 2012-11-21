@@ -7,8 +7,11 @@ public class Config {
 	public static void load() {
 		Plugin plugin = MemStorage.plugin;
 		FileConfiguration config = plugin.getConfig();
-		if (config.get("chat.public.format") == null) {
-			config.set("chat.public.format", "&7[&6Global&7] %DISPLAYNAME%&7: &r%MSG%");
+		if (config.get("default-chat") == null) {
+			config.set("default-chat", "global");
+		}
+		if (config.get("chat.global.format") == null) {
+			config.set("chat.global.format", "&7[&6Global&7] %DISPLAYNAME%&7: &r%MSG%");
 		}
 		if (config.get("chat.private.format") == null) {
 			config.set("chat.private.format", "&7[%DISPLAYNAME% &7>> %TARGETDISPLAYNAME%&7] &r%MSG%");

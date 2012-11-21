@@ -26,12 +26,38 @@ public class CommandHandler implements CommandExecutor {
 			playerName = player.getName();
 		}
 
+		if (command.getName().equalsIgnoreCase("global")) {
+			if (Utils.isConsole(sender)) {
+				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
+				return true;
+			}
+			if (LiveChat.perms.has(sender, "livechat.global") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
+				if (args.length != 0) {
+					String msg = Utils.getMsg(args, 0, sender);
+					Sender.main(player, player, msg, "global");
+					return true;
+				} else if (MemStorage.global.containsKey(playerName)) {
+					MemStorage.global.remove(playerName);
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_GLOBAL_CONVERSATION") + ".");
+					return true;
+				} else {
+					Utils.closeChannels((Player)sender);
+					MemStorage.global.put(playerName, targetName);
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_GLOBAL_CONVERSATION") + ".");
+					return true;
+				}
+			} else {
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
+				return true;
+			}
+		}
+
 		if (command.getName().equalsIgnoreCase("tell") || command.getName().equalsIgnoreCase("msg") || command.getName().equalsIgnoreCase("pm")) {
 			if (Utils.isConsole(sender)) {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.msg") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
+			if (LiveChat.perms.has(sender, "livechat.private") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 0) {
 					target = sender.getServer().getPlayer(args[0]);
 					if (target == null) {
@@ -41,7 +67,7 @@ public class CommandHandler implements CommandExecutor {
 					targetName = target.getName();
 					if (args.length >= 2) {
 						if (targetName != playerName) {
-							Sender.main(player, Utils.getMsg(args, 1, sender), "private:" + target.getName());
+							Sender.main(player, target, Utils.getMsg(args, 1, sender), "private:" + target.getName());
 							return true;
 						} else {
 							sender.sendMessage("\u00A7c" + MemStorage.locale.get("TALK_TO_YOURSELF") + ".");
@@ -76,13 +102,13 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.msg") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
+			if (LiveChat.perms.has(sender, "livechat.private") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (MemStorage.reply.get(playerName) == null) {
 					sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_REPLY") + ".");
 					return true;
 				} else if (args.length != 0) {
 					target = Bukkit.getServer().getPlayer(MemStorage.reply.get(playerName));
-					Sender.main(player, Utils.getMsg(args, 0, sender), "private:" + target.getName());
+					Sender.main(player, target, Utils.getMsg(args, 0, sender), "private:" + target.getName());
 					return true;
 				} else {
 					((Player)sender).chat("/tell " + MemStorage.reply.get(playerName));
@@ -99,13 +125,13 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.me") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
+			if (LiveChat.perms.has(sender, "livechat.emote") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length == 0) {
 					sender.sendMessage("\u00A7c" + MemStorage.locale.get("EMOTE_USAGE") + ".");
 					return true;
 				} else {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, msg, "emote");
+					Sender.main(player, player, msg, "emote");
 					return true;
 				}
 			} else {
@@ -122,9 +148,8 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.map") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, msg, "map");
+					Sender.main(player, player, msg, "map");
 					return true;
-
 				} else if (MemStorage.map.containsKey(playerName)) {
 					MemStorage.map.remove(playerName);
 					sender.sendMessage("\u00A7e" + MemStorage.locale.get("ENDED_MAP_CONVERSATION") + ".");
@@ -149,7 +174,7 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.local") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, msg, "local");
+					Sender.main(player, player, msg, "local");
 					return true;
 				} else if (MemStorage.local.containsKey(playerName)) {
 					MemStorage.local.remove(playerName);
@@ -167,36 +192,15 @@ public class CommandHandler implements CommandExecutor {
 			}
 		}
 
-		if (command.getName().equalsIgnoreCase("global")) {
-			if (Utils.isConsole(sender)) {
-				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
-				return true;
-			}
-			if (LiveChat.perms.has(sender, "livechat.chat") || LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
-				if (args.length == 0) {
-					Utils.closeChannels((Player)sender);
-					sender.sendMessage("\u00A7e" + MemStorage.locale.get("STARTED_GLOBAL_CONVERSATION") + ".");
-					return true;
-				} else {
-					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, msg, "public");
-					return true;
-				}
-			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION") + ".");
-				return true;
-			}
-		}
-
 		if (command.getName().equalsIgnoreCase("admin")) {
 			if (Utils.isConsole(sender)) {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE") + ".");
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.admin") || LiveChat.perms.has(sender, "livechat.admin.chat") || sender.isOp()) {
+			if (LiveChat.perms.has(sender, "livechat.admin") || sender.isOp()) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, msg, "admin");
+					Sender.main(player, player, msg, "admin");
 					return true;
 				} else if (MemStorage.admin.containsKey(playerName)) {
 					MemStorage.admin.remove(playerName);
