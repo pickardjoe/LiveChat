@@ -26,7 +26,7 @@ public class Log {
 			if (MemStorage.conf.getBoolean("console.color")) {
 				text = FormatTool.all(text);
 			}
-			Bukkit.getConsoleSender().sendMessage(text);
+			Bukkit.getConsoleSender().sendMessage("[" + type.toUpperCase() + "] " + text);
 		}
 	}
 }

@@ -46,53 +46,53 @@ public class Format {
 		format = format.replace("%MSG%", msg);
 
 		if (type == "public") {
-			if (LiveChat.perms.has(player, "livechat.global.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.global.color")) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.global.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.global.format")) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.global.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.global.magic")) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "private") {
-			if (LiveChat.perms.has(player, "livechat.private.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.private.color")) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.private.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.private.format")) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.private.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.private.magic")) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "map") {
-			if (LiveChat.perms.has(player, "livechat.map.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.map.color")) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.map.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.map.format")) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.map.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.map.magic")) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "local") {
-			if (LiveChat.perms.has(player, "livechat.local.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.local.color")) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.local.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.local.format")) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.local.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.local.magic")) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "emote") {
-			if (LiveChat.perms.has(player, "livechat.emote.color") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.emote.color")) {
 				format = FormatTool.color(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.emote.format") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.emote.format")) {
 				format = FormatTool.format(format);
 			}
-			if (LiveChat.perms.has(player, "livechat.emote.magic") || LiveChat.perms.has(player, "livechat.admin") || player.isOp()) {
+			if (LiveChat.perms.has(player, "livechat.emote.magic")) {
 				format = FormatTool.magic(format);
 			}
 		} else if (type == "admin") {

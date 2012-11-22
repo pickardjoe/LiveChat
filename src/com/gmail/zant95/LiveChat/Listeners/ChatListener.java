@@ -43,7 +43,7 @@ public class ChatListener implements Listener {
 		} else if (defaultchannel.equalsIgnoreCase("global") || defaultchannel.equalsIgnoreCase("local") || defaultchannel.equalsIgnoreCase("map")) {
 			Sender.main(sender, sender, msg, defaultchannel);
 		} else {
-			sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_NOT_FOUND") + ".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_NOT_FOUND"));
 		}
 	}
 }

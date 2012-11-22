@@ -4,6 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
 public class Config {
+
 	public static void load() {
 		Plugin plugin = MemStorage.plugin;
 		FileConfiguration config = plugin.getConfig();

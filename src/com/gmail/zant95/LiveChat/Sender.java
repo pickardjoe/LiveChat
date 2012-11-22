@@ -6,42 +6,42 @@ import org.bukkit.entity.Player;
 public class Sender {
 	public static void main(Player sender, Player target, String msg, String type) {
 		if (MemStorage.mute.containsKey(sender.getName())) {
-			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED") + ".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED"));
 		} else if (type.equalsIgnoreCase("global")) {
 			if (LiveChat.perms.has(sender, "livechat.global")) {
 				globalchat(sender, msg);
 			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
 			}
 		} else if (type.equalsIgnoreCase("private")) {
 			if (LiveChat.perms.has(sender, "livechat.private")) {
 				privatechat(sender, target, msg);
 			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
 			}
 		} else if (type.equalsIgnoreCase("map")) {
 			if (LiveChat.perms.has(sender, "livechat.map")) {
 				mapchat(sender, msg);
 			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
 			}
 		} else if (type.equalsIgnoreCase("local")) {
 			if (LiveChat.perms.has(sender, "livechat.local")) {
 				localchat(sender, msg);
 			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
 			}
 		} else if (type.equalsIgnoreCase("emote")) {
 			if (LiveChat.perms.has(sender, "livechat.emote")) {
 				emotechat(sender, msg);
 			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
 			}
 		} else if (type.equalsIgnoreCase("admin")) {
 			if (LiveChat.perms.has(sender, "livechat.admin")) {
 				adminchat(sender, msg);
 			} else {
-				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION") + ".");
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
 			}
 		}
 	}
@@ -49,7 +49,7 @@ public class Sender {
 	private static void globalchat(Player sender, String msg) {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
-			if ((!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass")) && !MemStorage.publicignore.containsKey(target.getName())) {
+			if ((!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass")) && !MemStorage.globalignore.containsKey(target.getName())) {
 				target.sendMessage(Format.main(sender, msg, "public"));
 			}
 		}
@@ -58,9 +58,9 @@ public class Sender {
 
 	private static void privatechat(Player sender, Player target, String msg) {
 		if (target == null) {
-			sender.sendMessage("\u00A7c" + MemStorage.locale.get("DISCONECTED_USER") + ".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("DISCONECTED_USER"));
 		} else if (MemStorage.privateignore.containsKey(target.getName()) || !(!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
-			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_IGNORED") + ".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_IGNORED"));
 		} else {
 			target.sendMessage(Format.privateTarget(sender, target, msg, "private"));
 			sender.sendMessage(Format.privateSender(sender, target, msg, "private"));
@@ -73,7 +73,7 @@ public class Sender {
 	private static void mapchat(Player sender, String msg) {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
-			if (target.getWorld() == sender.getWorld()) {
+			if (target.getWorld() == sender.getWorld() && !Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass") && !MemStorage.mapignore.containsKey(target.getName())) {
 				target.sendMessage(Format.main(sender, msg, "map"));
 			}
 		}
@@ -97,14 +97,14 @@ public class Sender {
 			sender.sendMessage(Format.main(sender, msg, "local"));
 			Log.main("[" + sender.getName() + "] " + msg, "local");
 		} else {
-			sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_HEAR") + ".");
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_HEAR"));
 		}
 	}
 
 	private static void adminchat(Player sender, String msg) {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
-			if (LiveChat.perms.has(target, "livechat.admin") || target.isOp()) {
+			if (LiveChat.perms.has(target, "livechat.admin")) {
 				target.sendMessage(Format.main(sender, msg, "admin"));
 			}
 		}
@@ -114,7 +114,7 @@ public class Sender {
 	private static void emotechat(Player sender, String msg) {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
-			if (!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass")) {
+			if (!Utils.isIgnored(sender, target) || LiveChat.perms.has(sender, "livechat.ignore.bypass") && !MemStorage.emoteignore.containsKey(target.getName())) {
 				target.sendMessage(Format.main(sender, msg, "emote"));
 			}
 		}

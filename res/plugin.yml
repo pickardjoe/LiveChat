@@ -7,129 +7,135 @@ description: A complete chat suite for CraftBukkit.
 commands:
    tell:
       description: Sends a private message to the specified player.
-      usage: /<command> <to> <message>
-      aliases: [whisper,lcmsg]
-   msg:
-      description: Aliase for /tell command.
-      usage: /<command> <to> <message>
-   pm:
-      description: Aliase for /tell command.
-      usage: /<command> <to> <message>
+      aliases: [whisper,msg,pm,lctell]
    r:
       description: Quickly reply the last player messaged you.
-      usage: /<command> <message>
       aliases: [reply,lcreply]
    me:
       description: Describes an action on the player's context.
-      usage: /<command> <message>
       aliases: [action,emote,lcme]
    map:
       description: Send a message in the actual map.
-      usage: /<command> <message>
       aliases: [lcmap]
    local:
       description: Send a message in a specific radius.
-      usage: /<command> <message>
       aliases: [lclocal]
    global:
       description: Send a public message.
-      usage: /<command> <message>
       aliases: [lcglobal]
    mute:
       description: Mutes or unmutes a player.
-      usage: /<command> <player>
       aliases: [lcmute]
    block:
       description: Block or unblock a player.
-      usage: /<command> <player>
       aliases: [lcblock]
    ignore:
-      description: Ignore or unignore a player.
-      usage: /<command> <player>
+      description: Ignore or unignore a player/channel.
       aliases: [lcignore]
    admin:
       description: Send a message on admin channel.
-      usage: /<command> <message>
       aliases: [lcadmin]
    livechat:
       description: Main command of plugin LiveChat.
-      usage: /<command>
 permissions:
    livechat.global:
-      description: Allows you to send a public message.
       default: true
    livechat.global.color:
-      description: Allows you to color your chat messages.
       default: true
    livechat.global.format:
-      description: Allows you to format your chat messages.
       default: false
    livechat.global.magic:
-      description: Allows you to use the matrix/magic color in your chat messages.
       default: false
    livechat.private:
-      description: Allows you to send a private message.
       default: true
    livechat.private.color:
-      description: Allows you to color your private messages.
       default: true
    livechat.private.format:
-      description: Allows you to format your private messages.
       default: false
    livechat.private.magic:
-      description: Allows you to use the matrix/magic color in your private messages.
       default: false
    livechat.emote:
-      description: Allows you to emote.
       default: true
    livechat.emote.color:
-      description: Allows you to color your emote messages.
       default: true
    livechat.emote.format:
-      description: Allows you to format your emote messages.
       default: false
    livechat.emote.magic:
-      description: Allows you to use the matrix/magic color in your emote messages.
       default: false
    livechat.map:
-      description: Allows you to send a message in the actual map.
       default: true
    livechat.map.color:
-      description: Allows you to color your map messages.
       default: true
    livechat.map.format:
-      description: Allows you to format your map messages.
       default: false
    livechat.map.magic:
-      description: Allows you to use the matrix/magic color in your map messages.
       default: false
    livechat.local:
-      description: Allows you to send a local message.
       default: true
    livechat.local.color:
-      description: Allows you to color your local messages.
       default: true
    livechat.local.format:
-      description: Allows you to format your local messages.
       default: false
    livechat.local.magic:
-      description: Allows you to use the matrix/magic color in your local messages.
       default: false
    livechat.ignore:
-      description: Allows you to ignore or unignore a player.
       default: true
    livechat.ignore.bypass:
-      description: Anybody can't ignore you.
       default: false
    livechat.mute:
-      description: Allows you to mute or unmute a player.
       default: false
    livechat.block:
-      description: Allows you to block or unblock a player.
       default: false
    livechat.colortag:
-      description: Allows you to display the color tag over your head.
       default: true
-   livechat.admin:
-      description: Gives you absolutely power over LiveChat.
+   livechat.global.*:
       default: false
+      children:
+         livechat.global: true
+         livechat.global.color: true
+         livechat.global.format: true
+         livechat.global.magic: true
+   livechat.private.*:
+      default: false
+      children:
+         livechat.private: true
+         livechat.private.color: true
+         livechat.private.format: true
+         livechat.private.magic: true
+   livechat.emote.*:
+      default: false
+      children:
+         livechat.emote: true
+         livechat.emote.color: true
+         livechat.emote.format: true
+         livechat.emote.magic: true
+   livechat.map.*:
+      default: false
+      children:
+         livechat.map: true
+         livechat.map.color: true
+         livechat.map.format: true
+         livechat.map.magic: true
+   livechat.local.*:
+      default: false
+      children:
+         livechat.local: true
+         livechat.local.color: true
+         livechat.local.format: true
+         livechat.local.magic: true
+   livechat.admin:
+      default: op
+      children:
+         livechat.global.*: true
+         livechat.private.*: true
+         livechat.emote.*: true
+         livechat.map.*: true
+         livechat.local.*: true
+         livechat.ignore: true
+         livechat.ignore.bypass: true
+         livechat.mute: true
+         livechat.block: true
+         livechat.colortag: true
+   livechat.*:
+      children:
+         livechat.admin: true
