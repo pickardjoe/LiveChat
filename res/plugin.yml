@@ -7,7 +7,7 @@ description: A complete chat suite for CraftBukkit.
 commands:
    tell:
       description: Sends a private message to the specified player.
-      aliases: [whisper,msg,pm,lctell]
+      aliases: [whisper,msg,pm,t,lctell]
    r:
       description: Quickly reply the last player messaged you.
       aliases: [reply,lcreply]
@@ -88,6 +88,8 @@ permissions:
       default: false
    livechat.colortag:
       default: true
+   livechat.socialspy:
+      default: false
    livechat.global.*:
       default: false
       children:
@@ -132,10 +134,10 @@ permissions:
          livechat.map.*: true
          livechat.local.*: true
          livechat.ignore: true
-         livechat.ignore.bypass: true
          livechat.mute: true
          livechat.block: true
          livechat.colortag: true
+         livechat.socialspy: true
    livechat.*:
       children:
          livechat.admin: true

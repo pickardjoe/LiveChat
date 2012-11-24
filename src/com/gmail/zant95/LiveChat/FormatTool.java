@@ -37,4 +37,24 @@ public class FormatTool {
 	public static String magic(String text) {
 		return text	.replace("&k",ChatColor.MAGIC.toString());
 	}
+	
+	public static String undo(String text) {
+		return text	.replace(ChatColor.BLACK.toString(),"")
+					.replace(ChatColor.DARK_BLUE.toString(),"")
+					.replace(ChatColor.DARK_GREEN.toString(),"")
+					.replace(ChatColor.DARK_AQUA.toString(),"")
+					.replace(ChatColor.DARK_RED.toString(),"")
+					.replace(ChatColor.DARK_PURPLE.toString(),"")
+					.replace(ChatColor.GOLD.toString(),"")
+					.replace(ChatColor.GRAY.toString(),"")
+					.replace(ChatColor.DARK_GRAY.toString(),"")
+					.replace(ChatColor.BLUE.toString(),"")
+					.replace(ChatColor.GREEN.toString(),"")
+					.replace(ChatColor.AQUA.toString(),"")
+					.replace(ChatColor.RED.toString(),"")
+					.replace(ChatColor.LIGHT_PURPLE.toString(),"")
+					.replace(ChatColor.YELLOW.toString(),"")
+					.replace(ChatColor.WHITE.toString(),"")
+					.replace(ChatColor.RESET.toString(),"");
+	}
 }

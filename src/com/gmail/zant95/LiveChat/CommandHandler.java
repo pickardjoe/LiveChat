@@ -36,7 +36,7 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.global")) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, player, msg, "global");
+					Sender.main(player, null, msg, "global");
 					return true;
 				} else if (MemStorage.global.containsKey(playerName) && !defaultchannel.equalsIgnoreCase("global")) {
 					MemStorage.global.remove(playerName);
@@ -69,7 +69,7 @@ public class CommandHandler implements CommandExecutor {
 					targetName = target.getName();
 					if (args.length >= 2) {
 						if (targetName != playerName) {
-							Sender.main(player, target, Utils.getMsg(args, 1, sender), "private:" + target.getName());
+							Sender.main((Player)sender, target, Utils.getMsg(args, 1, sender), "private");
 							return true;
 						} else {
 							sender.sendMessage("\u00A7c" + MemStorage.locale.get("TALK_TO_YOURSELF"));
@@ -133,7 +133,7 @@ public class CommandHandler implements CommandExecutor {
 					return true;
 				} else {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, player, msg, "emote");
+					Sender.main(player, null, msg, "emote");
 					return true;
 				}
 			} else {
@@ -150,7 +150,7 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.map")) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, player, msg, "map");
+					Sender.main(player, null, msg, "map");
 					return true;
 				} else if (MemStorage.map.containsKey(playerName) && !defaultchannel.equalsIgnoreCase("map")) {
 					MemStorage.map.remove(playerName);
@@ -176,7 +176,7 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.local")) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, player, msg, "local");
+					Sender.main(player, null, msg, "local");
 					return true;
 				} else if (MemStorage.local.containsKey(playerName) && !defaultchannel.equalsIgnoreCase("local")) {
 					MemStorage.local.remove(playerName);
@@ -202,7 +202,7 @@ public class CommandHandler implements CommandExecutor {
 			if (LiveChat.perms.has(sender, "livechat.admin")) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
-					Sender.main(player, player, msg, "admin");
+					Sender.main(player, null, msg, "admin");
 					return true;
 				} else if (MemStorage.admin.containsKey(playerName)) {
 					MemStorage.admin.remove(playerName);
@@ -293,11 +293,11 @@ public class CommandHandler implements CommandExecutor {
 						sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_WITH_YOURSELF"));
 						return true;
 					} else if (Utils.isIgnored(target, (Player)sender)) {
-						MemStorage.ignore.remove(playerName + target.getName());
+						MemStorage.ignore.remove(playerName + "." + target.getName());
 						sender.sendMessage(target.getDisplayName() + " \u00A7e" + MemStorage.locale.get("UNIGNORED_PLAYER"));
 						return true;
 					} else {
-						MemStorage.ignore.put(playerName + target.getName(), "");
+						MemStorage.ignore.put(playerName + "." + target.getName(), "");
 						sender.sendMessage(target.getDisplayName() + " \u00A7e" + MemStorage.locale.get("IGNORED_PLAYER"));
 						return true;
 					}

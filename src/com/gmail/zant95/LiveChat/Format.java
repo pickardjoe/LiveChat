@@ -10,19 +10,19 @@ public class Format {
 		String time = sdf.format(date);
 		String format = null;
 
-		if (type == "public") {
+		if (type.equalsIgnoreCase("global")) {
 			format = MemStorage.conf.getString("chat.global.format");
-		} else if (type == "private") {
+		} else if (type.equalsIgnoreCase("private")) {
 			format = MemStorage.conf.getString("chat.private.format");
-		} else if (type == "socialspy") {
+		} else if (type.equalsIgnoreCase("socialspy")) {
 			format = MemStorage.conf.getString("chat.socialspy.format");
-		} else if (type == "map") {
+		} else if (type.equalsIgnoreCase("map")) {
 			format = MemStorage.conf.getString("chat.map.format");
-		} else if (type == "local") {
+		} else if (type.equalsIgnoreCase("local")) {
 			format = MemStorage.conf.getString("chat.local.format");
-		} else if (type == "emote") {
+		} else if (type.equalsIgnoreCase("emote")) {
 			format = MemStorage.conf.getString("chat.emote.format");
-		} else if (type == "admin") {
+		} else if (type.equalsIgnoreCase("admin")) {
 			format = MemStorage.conf.getString("chat.admin.format");
 		} else {
 			format = "";
@@ -45,7 +45,7 @@ public class Format {
 		format = FormatTool.all(format);
 		format = format.replace("%MSG%", msg);
 
-		if (type == "public") {
+		if (type.equalsIgnoreCase("global")) {
 			if (LiveChat.perms.has(player, "livechat.global.color")) {
 				format = FormatTool.color(format);
 			}
@@ -55,7 +55,7 @@ public class Format {
 			if (LiveChat.perms.has(player, "livechat.global.magic")) {
 				format = FormatTool.magic(format);
 			}
-		} else if (type == "private") {
+		} else if (type.equalsIgnoreCase("private")) {
 			if (LiveChat.perms.has(player, "livechat.private.color")) {
 				format = FormatTool.color(format);
 			}
@@ -65,7 +65,7 @@ public class Format {
 			if (LiveChat.perms.has(player, "livechat.private.magic")) {
 				format = FormatTool.magic(format);
 			}
-		} else if (type == "map") {
+		} else if (type.equalsIgnoreCase("map")) {
 			if (LiveChat.perms.has(player, "livechat.map.color")) {
 				format = FormatTool.color(format);
 			}
@@ -75,7 +75,7 @@ public class Format {
 			if (LiveChat.perms.has(player, "livechat.map.magic")) {
 				format = FormatTool.magic(format);
 			}
-		} else if (type == "local") {
+		} else if (type.equalsIgnoreCase("local")) {
 			if (LiveChat.perms.has(player, "livechat.local.color")) {
 				format = FormatTool.color(format);
 			}
@@ -85,7 +85,7 @@ public class Format {
 			if (LiveChat.perms.has(player, "livechat.local.magic")) {
 				format = FormatTool.magic(format);
 			}
-		} else if (type == "emote") {
+		} else if (type.equalsIgnoreCase("emote")) {
 			if (LiveChat.perms.has(player, "livechat.emote.color")) {
 				format = FormatTool.color(format);
 			}
@@ -95,9 +95,9 @@ public class Format {
 			if (LiveChat.perms.has(player, "livechat.emote.magic")) {
 				format = FormatTool.magic(format);
 			}
-		} else if (type == "admin") {
+		} else if (type.equalsIgnoreCase("admin")) {
 			format = FormatTool.all(format);
-		} else if (type == "socialspy" && MemStorage.conf.getBoolean("chat.socialspy.color")) {
+		} else if (type.equalsIgnoreCase("socialspy") && MemStorage.conf.getBoolean("chat.socialspy.color")) {
 			format = FormatTool.all(format);
 		}
 
@@ -105,9 +105,9 @@ public class Format {
 	}
 	
 	public static String withTarget(Player sender, Player target, String format, String type) {
-		if (type == "private") {
+		if (type.equalsIgnoreCase("private")) {
 			format = main(sender, format, "private");
-		} else if (type == "socialspy") {
+		} else if (type.equalsIgnoreCase("socialspy")) {
 			format = main(sender, format, "socialspy");
 		}
 

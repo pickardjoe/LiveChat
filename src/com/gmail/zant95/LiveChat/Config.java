@@ -4,10 +4,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
 public class Config {
+	static Plugin plugin = MemStorage.plugin;
+	static FileConfiguration config = plugin.getConfig();
 
 	public static void load() {
-		Plugin plugin = MemStorage.plugin;
-		FileConfiguration config = plugin.getConfig();
 		if (config.get("default-chat") == null) {
 			config.set("default-chat", "global");
 		}
@@ -35,9 +35,6 @@ public class Config {
 		if (config.get("chat.socialspy.format") == null) {
 			config.set("chat.socialspy.format", "&7[&dSpy&7] &7[%DISPLAYNAME% &7>> %TARGETDISPLAYNAME%&7] %MSG%");
 		}
-		if (config.get("chat.socialspy.players") == null) {
-			config.set("chat.socialspy.players", "");
-		}
 		if (config.get("chat.socialspy.color") == null) {
 			config.set("chat.socialspy.color", false);
 		}
@@ -56,8 +53,8 @@ public class Config {
 		if (config.get("head.tag") == null) {
 			config.set("head.tag", true);
 		}
-		if (config.get("log.public") == null) {
-			config.set("log.public", true);
+		if (config.get("log.global") == null) {
+			config.set("log.global", true);
 		}
 		if (config.get("log.private") == null) {
 			config.set("log.private", true);
@@ -80,8 +77,8 @@ public class Config {
 		if (config.get("console.color") == null) {
 			config.set("console.color", true);
 		}
-		if (config.get("console.debug.public") == null) {
-			config.set("console.debug.public", true);
+		if (config.get("console.debug.global") == null) {
+			config.set("console.debug.global", true);
 		}
 		if (config.get("console.debug.private") == null) {
 			config.set("console.debug.private", true);
@@ -104,9 +101,15 @@ public class Config {
 		if (config.get("locale") == null) {
 			config.set("locale", "en");
 		}
-		if (config.get("version") == null || config.get("version") != plugin.getDescription().getVersion()) {
-			config.set("version", plugin.getDescription().getVersion());
-		}
+		noLongerRequired();
 		plugin.saveConfig();
+	}
+	
+	private static void noLongerRequired() {
+		config.set("chat.socialspy.players", null);
+		config.set("chat.admin.players", null);
+		config.set("log.public", null);
+		config.set("console.debug.public", null);
+		config.set("version", null);
 	}
 }

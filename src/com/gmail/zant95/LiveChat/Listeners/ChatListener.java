@@ -33,15 +33,15 @@ public class ChatListener implements Listener {
 			Player target = Bukkit.getServer().getPlayer(MemStorage.speaker.get(senderName));
 			Sender.main(sender, target, msg, "private");
 		} else if (MemStorage.admin.containsKey(senderName)) {
-			Sender.main(sender, sender, msg, "admin");
+			Sender.main(sender, null, msg, "admin");
 		} else if (MemStorage.local.containsKey(senderName)) {
-			Sender.main(sender, sender, msg, "local");
+			Sender.main(sender, null, msg, "local");
 		} else if (MemStorage.map.containsKey(senderName)) {
-			Sender.main(sender, sender, msg, "map");
+			Sender.main(sender, null, msg, "map");
 		} else if (MemStorage.global.containsKey(senderName)) {
-			Sender.main(sender, sender, msg, "global");
+			Sender.main(sender, null, msg, "global");
 		} else if (defaultchannel.equalsIgnoreCase("global") || defaultchannel.equalsIgnoreCase("local") || defaultchannel.equalsIgnoreCase("map")) {
-			Sender.main(sender, sender, msg, defaultchannel);
+			Sender.main(sender, null, msg, defaultchannel);
 		} else {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("CHANNEL_NOT_FOUND"));
 		}
