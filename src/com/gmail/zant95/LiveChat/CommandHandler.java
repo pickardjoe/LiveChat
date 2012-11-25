@@ -108,13 +108,22 @@ public class CommandHandler implements CommandExecutor {
 				if (MemStorage.reply.get(playerName) == null) {
 					sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_REPLY"));
 					return true;
-				} else if (args.length != 0) {
-					target = Bukkit.getServer().getPlayer(MemStorage.reply.get(playerName));
-					Sender.main(player, target, Utils.getMsg(args, 0, sender), "private:" + target.getName());
-					return true;
 				} else {
-					((Player)sender).chat("/tell " + MemStorage.reply.get(playerName));
-					return true;
+					target = Bukkit.getServer().getPlayer(MemStorage.reply.get(playerName));
+					if (args.length != 0) {
+						Sender.main((Player)sender, target, Utils.getMsg(args, 0, sender), "private");
+						return true;
+					} else {
+						if (target == null) {
+							sender.sendMessage("\u00A7c" + MemStorage.locale.get("PLAYER_NOT_FOUND"));
+							return true;
+						} else {
+							Utils.closeChannels((Player)sender);
+							MemStorage.speaker.put(playerName, target.getName());
+							sender.sendMessage("\u00A7e" + MemStorage.locale.get("CONVERSATION_WITH") + " " + target.getDisplayName() + "\u00A7e.");
+							return true;
+						}
+					}
 				}
 			} else {
 				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION"));

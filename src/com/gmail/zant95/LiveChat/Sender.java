@@ -49,8 +49,8 @@ public class Sender {
 			target.sendMessage(Format.privateTarget(sender, target, msg, "private"));
 			sender.sendMessage(Format.privateSender(sender, target, msg, "private"));
 			MemStorage.reply.put(target.getName(), sender.getName());
+			Log.main(Format.privateTarget(sender, target, msg, "private"), channel);
 			socialSpy(sender, target, msg);
-			Log.main("[" + sender.getName() + "->" + target.getName() + "] " + msg, channel);
 		}
 	}
 
@@ -119,12 +119,12 @@ public class Sender {
 	private static void socialSpy(Player sender, Player target, String msg) {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player playerlist:players) {
-			if (!LiveChat.perms.has(sender, "livechat.socialspy")) continue;
+			if (!LiveChat.perms.has(playerlist, "livechat.socialspy")) continue;
 			if (playerlist.equals(sender) || playerlist.equals(target)) continue;
 			playerlist.sendMessage(Format.withTarget(sender, target, msg, "socialspy"));
 		}
 	}
-	
+
 	private static void confirmAndLog(Boolean heard, Player sender, String fmsg, String channel) {
 		if (heard) {
 			sender.sendMessage(fmsg);
