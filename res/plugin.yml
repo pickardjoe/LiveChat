@@ -1,6 +1,6 @@
 name: LiveChat
 main: com.gmail.zant95.LiveChat.LiveChat
-version: 2.0.3
+version: 2.0.4
 author: zant95
 softdepend: [Vault]
 description: A complete chat suite for CraftBukkit.
@@ -88,6 +88,8 @@ permissions:
       default: false
    livechat.colortag:
       default: true
+   livechat.hear.bypass:
+      default: false
    livechat.socialspy:
       default: false
    livechat.global.*:

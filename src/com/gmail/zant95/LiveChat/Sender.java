@@ -46,11 +46,12 @@ public class Sender {
 		} else if (MemStorage.privateignore.containsKey(target.getName()) || (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_IGNORED"));
 		} else {
-			target.sendMessage(Format.privateTarget(sender, target, msg, "private"));
-			sender.sendMessage(Format.privateSender(sender, target, msg, "private"));
+			String fmsgSender = Format.privateSender(sender, target, msg, "private");
+			String fmsgTarget = Format.privateTarget(sender, target, msg, "private");
 			MemStorage.reply.put(target.getName(), sender.getName());
-			Log.main(Format.privateTarget(sender, target, msg, "private"), channel);
+			target.sendMessage(fmsgTarget);
 			socialSpy(sender, target, msg);
+			confirmAndLog(true, sender, fmsgSender, channel);
 		}
 	}
 
@@ -126,9 +127,13 @@ public class Sender {
 	}
 
 	private static void confirmAndLog(Boolean heard, Player sender, String fmsg, String channel) {
-		if (heard) {
+		if (heard || LiveChat.perms.has(sender, "livechat.hear.bypass")) {
 			sender.sendMessage(fmsg);
-			Log.main(fmsg, channel);
+			if (channel.equalsIgnoreCase("private")) {
+				Log.main(fmsg.replaceFirst(MemStorage.locale.get("YOU"), sender.getName()), channel);
+			} else {
+				Log.main(fmsg, channel);
+			}
 		} else {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_HEAR"));
 		}
