@@ -47,7 +47,12 @@ public class PlayerDisplayName {
 		Essentials ess = (Essentials)Bukkit.getServer().getPluginManager().getPlugin("Essentials");
 		if (ess != null) {
 			User essPlayer = ess.getUser(player.getName());
-			playerName = essPlayer.getNickname();
+			try {
+				playerName = essPlayer.getNickname();
+				playerName.length(); //If player doesn't have a nickname it will throw a NullPointerException.
+			} catch(Exception e) {
+				playerName = player.getName();
+			}
 		} else {
 			playerName = player.getName();
 		}
