@@ -45,7 +45,7 @@ public class PlayerDisplayName {
 		}
 
 		Essentials ess = (Essentials)Bukkit.getServer().getPluginManager().getPlugin("Essentials");
-		if (ess != null && ess.isEnabled()) {
+		if (ess != null) {
 			User essPlayer = ess.getUser(player.getName());
 			playerName = essPlayer.getNickname();
 		} else {

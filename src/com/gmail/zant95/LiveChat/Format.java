@@ -2,6 +2,7 @@ package com.gmail.zant95.LiveChat;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -44,11 +45,17 @@ public class Format {
 				.replace("%TOTALXP%", Integer.toString(player.getTotalExperience()))
 				.replace("%TIME%", time);
 
-		FPlayer fplayer = (FPlayer)FPlayers.i.get(player);
-		if (fplayer.hasFaction()) {
-			format = format
-					.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag())
-					.replace("%FACTIONTITLE%", fplayer.getTitle());
+		FPlayer fplayer = FPlayers.i.get(player);
+		if (fplayer != null) {
+			if (fplayer.hasFaction()) {
+				format = format
+						.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag())
+						.replace("%FACTIONTITLE%", fplayer.getTitle());
+			} else {
+				format = format
+						.replace("%FACTIONTAG%", "")
+						.replace("%FACTIONTITLE%", "");
+			}
 		}
 
 		format = FormatTool.all(format);
