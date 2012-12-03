@@ -1,6 +1,10 @@
 package com.gmail.zant95.LiveChat;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import com.earth2me.essentials.Essentials;
+import com.earth2me.essentials.User;
 
 public class PlayerDisplayName {
 	public static void main(Player player) {
@@ -13,6 +17,7 @@ public class PlayerDisplayName {
 		String opPrefix = FormatTool.all(MemStorage.plugin.getConfig().getString("op.prefix"));
 		String opSuffix = FormatTool.all(MemStorage.plugin.getConfig().getString("op.suffix"));
 
+		String playerName;
 		String finalPrefix;
 		String finalSuffix;
 		String finalName;
@@ -39,7 +44,15 @@ public class PlayerDisplayName {
 			finalSuffix = FormatTool.all(groupSuffix);
 		}
 
-		finalName = finalPrefix + player.getName() + finalSuffix;
+		Essentials ess = (Essentials)Bukkit.getServer().getPluginManager().getPlugin("Essentials");
+		if (ess != null && ess.isEnabled()) {
+			User essPlayer = ess.getUser(player.getName());
+			playerName = essPlayer.getNickname();
+		} else {
+			playerName = player.getName();
+		}
+
+		finalName = finalPrefix + playerName + finalSuffix;
 		player.setDisplayName(finalName);
 
 		if (!MemStorage.plugin.getConfig().getBoolean("userlist.display-prefix")) {
@@ -50,14 +63,14 @@ public class PlayerDisplayName {
 			finalSuffix = "";
 		}
 
-		finalName = finalPrefix + player.getName() + finalSuffix;
+		finalName = finalPrefix + playerName + finalSuffix;
 
 		if (finalName.length() > 16) {
 			remainChars = finalName.length() - 16;
 		}
 
-		if (remainChars < player.getName().length()) {
-			finalNameTab = finalPrefix + player.getName().substring(0, player.getName().length() - remainChars) + finalSuffix;
+		if (remainChars < playerName.length()) {
+			finalNameTab = finalPrefix + playerName.substring(0, playerName.length() - remainChars) + finalSuffix;
 		} else {
 			finalNameTab = finalName.substring(0, finalName.charAt(15) == '\u00a7' ? 15 : 16);
 		}
