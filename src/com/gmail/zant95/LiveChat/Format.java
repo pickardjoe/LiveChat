@@ -48,12 +48,19 @@ public class Format {
 		FPlayer fplayer = FPlayers.i.get(player);
 		if (fplayer != null) {
 			if (fplayer.hasFaction()) {
-				format = format
-						.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag())
-						.replace("%FACTIONTITLE%", fplayer.getTitle());
+				format = format.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag());
+				if (fplayer.getTitle().length() != 0) {
+					format = format.replace("%FACTIONTITLE%", fplayer.getTitle());
+				} else {
+					format = format
+							.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
+							.replace("%FACTIONTITLE%", "");
+				}
 			} else {
 				format = format
+						.replace("%FACTIONTAG% ", "%FACTIONTAG%")
 						.replace("%FACTIONTAG%", "")
+						.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
 						.replace("%FACTIONTITLE%", "");
 			}
 		}
