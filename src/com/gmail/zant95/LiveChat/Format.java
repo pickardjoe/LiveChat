@@ -3,8 +3,10 @@ package com.gmail.zant95.LiveChat;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 public class Format {
 	public static String main(Player player, String msg, String type) {
@@ -12,6 +14,7 @@ public class Format {
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
 		String time = sdf.format(date);
 		String format = null;
+		boolean NoFaction = false;
 
 		if (type.equalsIgnoreCase("global")) {
 			format = MemStorage.conf.getString("chat.global.format");
@@ -45,24 +48,33 @@ public class Format {
 				.replace("%TOTALXP%", Integer.toString(player.getTotalExperience()))
 				.replace("%TIME%", time);
 
-		FPlayer fplayer = FPlayers.i.get(player);
-		if (fplayer != null) {
-			if (fplayer.hasFaction()) {
-				format = format.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag());
-				if (fplayer.getTitle().length() != 0) {
-					format = format.replace("%FACTIONTITLE%", fplayer.getTitle());
+		Plugin factions = Bukkit.getServer().getPluginManager().getPlugin("Factions");
+		if (factions != null) {
+			FPlayer fplayer = FPlayers.i.get(player);
+			if (fplayer != null) {
+				if (fplayer.hasFaction()) {
+					format = format.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag());
+					if (fplayer.getTitle().length() != 0) {
+						format = format.replace("%FACTIONTITLE%", fplayer.getTitle());
+					} else {
+						format = format
+								.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
+								.replace("%FACTIONTITLE%", "");
+					}
 				} else {
-					format = format
-							.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
-							.replace("%FACTIONTITLE%", "");
+					NoFaction = true;
 				}
-			} else {
-				format = format
-						.replace("%FACTIONTAG% ", "%FACTIONTAG%")
-						.replace("%FACTIONTAG%", "")
-						.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
-						.replace("%FACTIONTITLE%", "");
 			}
+		} else {
+			NoFaction = true;
+		}
+
+		if (NoFaction) {
+			format = format
+					.replace("%FACTIONTAG% ", "%FACTIONTAG%")
+					.replace("%FACTIONTAG%", "")
+					.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
+					.replace("%FACTIONTITLE%", "");
 		}
 
 		format = FormatTool.all(format);
