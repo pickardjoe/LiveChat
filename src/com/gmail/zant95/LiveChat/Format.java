@@ -57,9 +57,7 @@ public class Format {
 					if (fplayer.getTitle().length() != 0) {
 						format = format.replace("%FACTIONTITLE%", fplayer.getTitle());
 					} else {
-						format = format
-								.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
-								.replace("%FACTIONTITLE%", "");
+						NoFaction = true;
 					}
 				} else {
 					NoFaction = true;
