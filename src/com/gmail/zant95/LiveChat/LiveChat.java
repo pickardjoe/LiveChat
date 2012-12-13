@@ -77,9 +77,10 @@ public class LiveChat extends JavaPlugin {
 
 		//Implement Plugin Metrics
 		try {
-			Metrics metrics = new Metrics(this); metrics.start();
-		} catch (IOException e) { //Failed to submit the stats :-(
-			this.getLogger().info("Error submitting stats!");
+		    Metrics metrics = new Metrics(this);
+		    metrics.start();
+		} catch (IOException e) {
+		    // Failed to submit the stats :-(
 		}
 
 		//Implement commands
