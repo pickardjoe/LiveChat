@@ -161,4 +161,17 @@ public class Format {
 				.replaceFirst(sender.getName(), MemStorage.locale.get("YOU"));
 		return msg;
 	}
+	
+	public static String userlist(Player player) {
+		String format = MemStorage.conf.getString("userlist.format");
+		return FormatTool.all(format
+				.replace("%NAME%", player.getName())
+				.replace("%GROUPNAME%", LiveChat.chat.getPrimaryGroup(player))
+				.replace("%PREFIX%", LiveChat.chat.getPlayerPrefix(player))
+				.replace("%SUFFIX%", LiveChat.chat.getPlayerSuffix(player))
+				.replace("%HEALTH%", Integer.toString(player.getHealth()))
+				.replace("%FOOD%", Integer.toString(player.getFoodLevel()))
+				.replace("%LEVEL%", Integer.toString(player.getLevel()))
+				.replace("%TOTALXP%", Integer.toString(player.getTotalExperience())));
+	}
 }

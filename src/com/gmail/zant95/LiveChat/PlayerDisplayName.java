@@ -14,32 +14,19 @@ public class PlayerDisplayName {
 		String playerSuffix = LiveChat.chat.getPlayerSuffix(player);
 		String groupSuffix = LiveChat.chat.getGroupSuffix(player.getWorld(), playerGroup);
 
-		String opPrefix = FormatTool.all(MemStorage.plugin.getConfig().getString("op.prefix"));
-		String opSuffix = FormatTool.all(MemStorage.plugin.getConfig().getString("op.suffix"));
-
 		String playerName;
 		String finalPrefix;
 		String finalSuffix;
 		String finalName;
-		String finalNameTab;
-		int remainChars = 0;
 
 		if (playerPrefix == groupPrefix) {
-			if (player.isOp() && opPrefix.length() != 0) {
-				finalPrefix = opPrefix;
-			} else {
-				finalPrefix = FormatTool.all(playerPrefix);
-			}
+			finalPrefix = FormatTool.all(playerPrefix);
 		} else {
 			finalPrefix = FormatTool.all(groupPrefix);
 		}
 
 		if (playerSuffix == groupSuffix) {
-			if (player.isOp() && opSuffix.length() != 0) {
-				finalSuffix = opSuffix;
-			} else {
-				finalSuffix = FormatTool.all(playerSuffix);
-			}
+			finalSuffix = FormatTool.all(playerSuffix);
 		} else {
 			finalSuffix = FormatTool.all(groupSuffix);
 		}
@@ -60,26 +47,17 @@ public class PlayerDisplayName {
 		finalName = finalPrefix + playerName + finalSuffix;
 		player.setDisplayName(finalName);
 
-		if (!MemStorage.plugin.getConfig().getBoolean("userlist.display-prefix")) {
-			finalPrefix = "";
+		//Userlist format
+		finalName = Format.userlist(player);
+		
+		try {
+			if (finalName.length() > 16) {
+				player.setPlayerListName(finalName.substring(0, finalName.charAt(15) == '\u00a7' ? 15 : 16));
+			} else {
+				player.setPlayerListName(finalName);
+			}
+		} catch (Exception e) {
+			player.setPlayerListName(player.getName());
 		}
-
-		if (!MemStorage.plugin.getConfig().getBoolean("userlist.display-suffix")) {
-			finalSuffix = "";
-		}
-
-		finalName = finalPrefix + playerName + finalSuffix;
-
-		if (finalName.length() > 16) {
-			remainChars = finalName.length() - 16;
-		}
-
-		if (remainChars < playerName.length()) {
-			finalNameTab = finalPrefix + playerName.substring(0, playerName.length() - remainChars) + finalSuffix;
-		} else {
-			finalNameTab = finalName.substring(0, finalName.charAt(15) == '\u00a7' ? 15 : 16);
-		}
-
-		player.setPlayerListName(finalNameTab);
 	}
 }

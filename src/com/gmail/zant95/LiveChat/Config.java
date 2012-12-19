@@ -44,11 +44,8 @@ public class Config {
 		if (config.get("op.suffix") == null) {
 			config.set("op.suffix", "");
 		}
-		if (config.get("userlist.display-prefix") == null) {
-			config.set("userlist.display-prefix", true);
-		}
-		if (config.get("userlist.display-suffix") == null) {
-			config.set("userlist.display-suffix", false);
+		if (config.get("userlist.format") == null) {
+			config.set("userlist.format", "%PREFIX%%NAME%");
 		}
 		if (config.get("head.tag") == null) {
 			config.set("head.tag", true);
@@ -106,6 +103,9 @@ public class Config {
 	}
 	
 	private static void noLongerRequired() {
+		config.set("op", null);
+		config.set("userlist.display-prefix", null);
+		config.set("userlist.display-suffix", null);
 		config.set("chat.socialspy.players", null);
 		config.set("chat.admin.players", null);
 		config.set("log.public", null);
