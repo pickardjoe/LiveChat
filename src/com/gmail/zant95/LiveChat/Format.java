@@ -14,7 +14,6 @@ public class Format {
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
 		String time = sdf.format(date);
 		String format = null;
-		boolean NoFaction = false;
 
 		if (type.equalsIgnoreCase("global")) {
 			format = MemStorage.conf.getString("chat.global.format");
@@ -48,33 +47,7 @@ public class Format {
 				.replace("%TOTALXP%", Integer.toString(player.getTotalExperience()))
 				.replace("%TIME%", time);
 
-		Plugin factions = Bukkit.getServer().getPluginManager().getPlugin("Factions");
-		if (factions != null) {
-			FPlayer fplayer = FPlayers.i.get(player);
-			if (fplayer != null) {
-				if (fplayer.hasFaction()) {
-					format = format.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag());
-					if (fplayer.getTitle().length() != 0) {
-						format = format.replace("%FACTIONTITLE%", fplayer.getTitle());
-					} else {
-						NoFaction = true;
-					}
-				} else {
-					NoFaction = true;
-				}
-			}
-		} else {
-			NoFaction = true;
-		}
-
-		if (NoFaction) {
-			format = format
-					.replace("%FACTIONTAG% ", "%FACTIONTAG%")
-					.replace("%FACTIONTAG%", "")
-					.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
-					.replace("%FACTIONTITLE%", "");
-		}
-
+		format = faction(format, player);
 		format = FormatTool.all(format);
 		format = format.replace("%MSG%", msg);
 
@@ -162,9 +135,41 @@ public class Format {
 		return msg;
 	}
 	
+	public static String faction(String format, Player player) {
+		boolean NoFaction = false;
+		Plugin factions = Bukkit.getServer().getPluginManager().getPlugin("Factions");
+		if (factions != null) {
+			FPlayer fplayer = FPlayers.i.get(player);
+			if (fplayer != null) {
+				if (fplayer.hasFaction()) {
+					format = format.replace("%FACTIONTAG%", fplayer.getRole().getPrefix() + fplayer.getTag());
+					if (fplayer.getTitle().length() != 0) {
+						format = format.replace("%FACTIONTITLE%", fplayer.getRole().getPrefix() + fplayer.getTitle());
+					} else {
+						NoFaction = true;
+					}
+				} else {
+					NoFaction = true;
+				}
+			}
+		} else {
+			NoFaction = true;
+		}
+
+		if (NoFaction) {
+			format = format
+					.replace("%FACTIONTAG% ", "%FACTIONTAG%")
+					.replace("%FACTIONTAG%", "")
+					.replace("%FACTIONTITLE% ", "%FACTIONTITLE%")
+					.replace("%FACTIONTITLE%", "");
+		}
+
+		return format;
+	}
+	
 	public static String userlist(Player player) {
 		String format = MemStorage.conf.getString("userlist.format");
-		return FormatTool.all(format
+		format = FormatTool.all(format
 				.replace("%NAME%", player.getName())
 				.replace("%GROUPNAME%", LiveChat.chat.getPrimaryGroup(player))
 				.replace("%PREFIX%", LiveChat.chat.getPlayerPrefix(player))
@@ -173,5 +178,8 @@ public class Format {
 				.replace("%FOOD%", Integer.toString(player.getFoodLevel()))
 				.replace("%LEVEL%", Integer.toString(player.getLevel()))
 				.replace("%TOTALXP%", Integer.toString(player.getTotalExperience())));
+		format = faction(format, player);
+
+		return format;
 	}
 }
