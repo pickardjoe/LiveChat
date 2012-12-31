@@ -166,7 +166,7 @@ public class Format {
 
 		return format;
 	}
-	
+
 	public static String userlist(Player player) {
 		String format = MemStorage.conf.getString("userlist.format");
 		format = FormatTool.all(format
