@@ -21,6 +21,7 @@ public class MemStorage {
 	public static HashMap<String, String> mapignore = new HashMap<String, String>();
 	public static HashMap<String, String> localignore = new HashMap<String, String>();
 	public static HashMap<String, String> emoteignore = new HashMap<String, String>();
+	public static HashMap<String, String> socialspyoff = new HashMap<String, String>();
 	public static HashMap<String, String> locale = new HashMap<String, String>();
 	public static Plugin plugin = Bukkit.getPluginManager().getPlugin("LiveChat");
 	public static FileConfiguration conf = plugin.getConfig();

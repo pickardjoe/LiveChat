@@ -375,6 +375,23 @@ public class CommandHandler implements CommandExecutor {
 			}
 		}
 
+		if (command.getName().equalsIgnoreCase("socialspy")) {
+			if (LiveChat.perms.has(sender, "livechat.socialspy")) {
+				if (MemStorage.socialspyoff.containsKey(sender.getName())) {
+					MemStorage.socialspyoff.remove(sender.getName());
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("SOCIALSPY_ON"));
+					return true;
+				} else {
+					MemStorage.socialspyoff.put(sender.getName(), "");
+					sender.sendMessage("\u00A7e" + MemStorage.locale.get("SOCIALSPY_OFF"));
+					return true;
+				}
+			} else {
+				sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOT_PERMISSION"));
+				return true;
+			}
+		}
+
 		if (command.getName().equalsIgnoreCase("livechat")) {
 			if ((args.length == 1) && args[0].equalsIgnoreCase("reload")) {
 				if (LiveChat.perms.has(sender, "livechat.admin") || Utils.isConsole(sender)) {
@@ -395,6 +412,7 @@ public class CommandHandler implements CommandExecutor {
 				return true;
 			}
 		}
+
 		return false;
 	}
 }

@@ -1,6 +1,6 @@
 name: LiveChat
 main: com.gmail.zant95.LiveChat.LiveChat
-version: 2.0.6
+version: 2.0.7
 author: zant95
 softdepend: [Vault]
 description: A complete chat suite for CraftBukkit.
@@ -32,13 +32,18 @@ commands:
    ignore:
       description: Ignore or unignore a player/channel.
       aliases: [lcignore]
+   socialspy:
+      description: Enables/disables socialspy.
+      aliases: [lcsocialspy]
    admin:
       description: Send a message on admin channel.
       aliases: [lcadmin]
    livechat:
       description: Main command of plugin LiveChat.
 permissions:
-   livechat.global:
+   livechat.global.send:
+      default: true
+   livechat.global.receive:
       default: true
    livechat.global.color:
       default: true
@@ -46,7 +51,9 @@ permissions:
       default: false
    livechat.global.magic:
       default: false
-   livechat.private:
+   livechat.private.send:
+      default: true
+   livechat.private.receive:
       default: true
    livechat.private.color:
       default: true
@@ -54,7 +61,9 @@ permissions:
       default: false
    livechat.private.magic:
       default: false
-   livechat.emote:
+   livechat.emote.send:
+      default: true
+   livechat.emote.receive:
       default: true
    livechat.emote.color:
       default: true
@@ -62,7 +71,9 @@ permissions:
       default: false
    livechat.emote.magic:
       default: false
-   livechat.map:
+   livechat.map.send:
+      default: true
+   livechat.map.receive:
       default: true
    livechat.map.color:
       default: true
@@ -70,7 +81,9 @@ permissions:
       default: false
    livechat.map.magic:
       default: false
-   livechat.local:
+   livechat.local.send:
+      default: true
+   livechat.local.receive:
       default: true
    livechat.local.color:
       default: true
@@ -95,35 +108,40 @@ permissions:
    livechat.global.*:
       default: false
       children:
-         livechat.global: true
+         livechat.global.send: true
+         livechat.global.receive: true
          livechat.global.color: true
          livechat.global.format: true
          livechat.global.magic: true
    livechat.private.*:
       default: false
       children:
-         livechat.private: true
+         livechat.private.send: true
+         livechat.private.receive: true
          livechat.private.color: true
          livechat.private.format: true
          livechat.private.magic: true
    livechat.emote.*:
       default: false
       children:
-         livechat.emote: true
+         livechat.emote.send: true
+         livechat.emote.receive: true
          livechat.emote.color: true
          livechat.emote.format: true
          livechat.emote.magic: true
    livechat.map.*:
       default: false
       children:
-         livechat.map: true
+         livechat.map.send: true
+         livechat.map.receive: true
          livechat.map.color: true
          livechat.map.format: true
          livechat.map.magic: true
    livechat.local.*:
       default: false
       children:
-         livechat.local: true
+         livechat.local.send: true
+         livechat.local.receive: true
          livechat.local.color: true
          livechat.local.format: true
          livechat.local.magic: true

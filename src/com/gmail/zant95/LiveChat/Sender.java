@@ -7,17 +7,17 @@ public class Sender {
 	public static void main(Player sender, Player target, String msg, String type) {
 		if (MemStorage.mute.containsKey(sender.getName())) {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_MUTED"));
-		} else if (type.equalsIgnoreCase("global") && LiveChat.perms.has(sender, "livechat.global")) {
+		} else if (type.equalsIgnoreCase("global") && LiveChat.perms.has(sender, "livechat.global.send")) {
 			globalchat(sender, msg);
-		} else if (type.equalsIgnoreCase("private") && LiveChat.perms.has(sender, "livechat.private")) {
+		} else if (type.equalsIgnoreCase("private") && LiveChat.perms.has(sender, "livechat.private.send")) {
 			privatechat(sender, target, msg);
-		} else if (type.equalsIgnoreCase("map") && LiveChat.perms.has(sender, "livechat.map")) {
+		} else if (type.equalsIgnoreCase("map") && LiveChat.perms.has(sender, "livechat.map.send")) {
 			mapchat(sender, msg);
-		} else if (type.equalsIgnoreCase("local") && LiveChat.perms.has(sender, "livechat.local")) {
+		} else if (type.equalsIgnoreCase("local") && LiveChat.perms.has(sender, "livechat.local.send")) {
 			localchat(sender, msg);
-		} else if (type.equalsIgnoreCase("emote") && LiveChat.perms.has(sender, "livechat.emote")) {
+		} else if (type.equalsIgnoreCase("emote") && LiveChat.perms.has(sender, "livechat.emote.send")) {
 			emotechat(sender, msg);
-		} else if (type.equalsIgnoreCase("admin") && LiveChat.perms.has(sender, "livechat.admin")) {
+		} else if (type.equalsIgnoreCase("admin") && LiveChat.perms.has(sender, "livechat.admin.send")) {
 			adminchat(sender, msg);
 		} else {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
@@ -31,6 +31,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.globalignore.containsKey(target.getName())) continue;
+			if (LiveChat.perms.has(target, "livechat.global.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (target.equals(sender)) continue;
 			target.sendMessage(fmsg);
@@ -43,7 +44,7 @@ public class Sender {
 		String channel = "private";
 		if (target == null) {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("DISCONECTED_USER"));
-		} else if (MemStorage.privateignore.containsKey(target.getName()) || (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
+		} else if (MemStorage.privateignore.containsKey(target.getName()) || (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass") && LiveChat.perms.has(target, "livechat.private.receive"))) {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_IGNORED"));
 		} else {
 			String fmsgSender = Format.privateSender(sender, target, msg, "private");
@@ -62,6 +63,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.mapignore.containsKey(target.getName())) continue;
+			if (LiveChat.perms.has(target, "livechat.map.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (!target.getWorld().equals(sender.getWorld())) continue;
 			if (target.equals(sender)) continue;
@@ -78,6 +80,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.localignore.containsKey(target.getName())) continue;
+			if (LiveChat.perms.has(target, "livechat.local.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (!target.getWorld().equals(sender.getWorld())) continue;
 			if (target.equals(sender)) continue;
@@ -109,6 +112,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.emoteignore.containsKey(target.getName())) continue;
+			if (LiveChat.perms.has(target, "livechat.emote.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (target.equals(sender)) continue;
 			target.sendMessage(fmsg);
@@ -121,6 +125,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player playerlist:players) {
 			if (!LiveChat.perms.has(playerlist, "livechat.socialspy")) continue;
+			if (MemStorage.socialspyoff.containsKey(playerlist)) continue;
 			if (playerlist.equals(sender) || playerlist.equals(target)) continue;
 			playerlist.sendMessage(Format.withTarget(sender, target, msg, "socialspy"));
 		}

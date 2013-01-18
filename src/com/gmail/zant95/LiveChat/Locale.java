@@ -71,6 +71,8 @@ public class Locale {
 		loadValue("IGNORED_EMOTE_CHAT");
 		loadValue("UNIGNORED_EMOTE_CHAT");
 		loadValue("CHANNEL_NOT_EXIST");
+		loadValue("SOCIALSPY_ON");
+		loadValue("SOCIALSPY_OFF");
 		loadValue("DISCONECTED_USER");
 		loadValue("RELOAD_CONFIG");
 	}

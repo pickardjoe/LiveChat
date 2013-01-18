@@ -167,6 +167,37 @@ public class Format {
 		return format;
 	}
 
+	/*
+	 * Future Heroes support
+	 * 
+	public static String heroes(String format, Player player) {
+		boolean NoHeroes = false;
+		Plugin heroes = Bukkit.getServer().getPluginManager().getPlugin("Heroes");
+		if (heroes != null) {
+			Hero hplayer = null // Get player
+			if (hplayer != null) {
+				format = format
+						.replace("%HEROESCLASS%", null // Get class name)
+						.replace("%HEROESSECONDCLASS%", null // Get second class name);
+			} else {
+				NoHeroes = true;
+			}
+		} else {
+			NoHeroes = true;
+		}
+
+		if (NoHeroes) {
+			format = format
+					.replace("%HEROESCLASS% ", "%HEROESCLASS%")
+					.replace("%HEROESCLASS%", "")
+					.replace("%HEROESSECONDCLASS% ", "%HEROESSECONDCLASS%")
+					.replace("%HEROESSECONDCLASS%", "");
+		}
+
+		return format;
+	}
+	*/
+
 	public static String userlist(Player player) {
 		String format = MemStorage.conf.getString("userlist.format");
 		format = FormatTool.all(format
