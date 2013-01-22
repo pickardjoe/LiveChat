@@ -33,7 +33,7 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.global")) {
+			if (LiveChat.perms.has(sender, "livechat.global.send")) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
 					Sender.main(player, null, msg, "global");
@@ -59,7 +59,7 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.private")) {
+			if (LiveChat.perms.has(sender, "livechat.private.send")) {
 				if (args.length != 0) {
 					target = sender.getServer().getPlayer(args[0]);
 					if (target == null) {
@@ -104,7 +104,7 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.private")) {
+			if (LiveChat.perms.has(sender, "livechat.private.send")) {
 				if (MemStorage.reply.get(playerName) == null) {
 					sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_REPLY"));
 					return true;
@@ -136,7 +136,7 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.emote")) {
+			if (LiveChat.perms.has(sender, "livechat.emote.send")) {
 				if (args.length == 0) {
 					sender.sendMessage("\u00A7c" + MemStorage.locale.get("EMOTE_USAGE"));
 					return true;
@@ -156,7 +156,7 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.map")) {
+			if (LiveChat.perms.has(sender, "livechat.map.send")) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
 					Sender.main(player, null, msg, "map");
@@ -182,7 +182,7 @@ public class CommandHandler implements CommandExecutor {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
 			}
-			if (LiveChat.perms.has(sender, "livechat.local")) {
+			if (LiveChat.perms.has(sender, "livechat.local.send")) {
 				if (args.length != 0) {
 					String msg = Utils.getMsg(args, 0, sender);
 					Sender.main(player, null, msg, "local");

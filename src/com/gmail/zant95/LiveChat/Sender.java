@@ -23,7 +23,7 @@ public class Sender {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("SPEAK_PERMISSION"));
 		}
 	}
-	
+
 	private static void globalchat(Player sender, String msg) {
 		Boolean heard = false;
 		String channel = "global";
@@ -31,7 +31,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.globalignore.containsKey(target.getName())) continue;
-			if (LiveChat.perms.has(target, "livechat.global.receive")) continue;
+			if (!LiveChat.perms.has(target, "livechat.global.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (target.equals(sender)) continue;
 			target.sendMessage(fmsg);
@@ -44,15 +44,17 @@ public class Sender {
 		String channel = "private";
 		if (target == null) {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("DISCONECTED_USER"));
-		} else if (MemStorage.privateignore.containsKey(target.getName()) || (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass") && LiveChat.perms.has(target, "livechat.private.receive"))) {
+		} else if (MemStorage.privateignore.containsKey(target.getName()) || (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass"))) {
 			sender.sendMessage("\u00A7c" + MemStorage.locale.get("YOU_ARE_IGNORED"));
-		} else {
+		} else if (LiveChat.perms.has(target, "livechat.private.receive")) {
 			String fmsgSender = Format.privateSender(sender, target, msg, "private");
 			String fmsgTarget = Format.privateTarget(sender, target, msg, "private");
 			MemStorage.reply.put(target.getName(), sender.getName());
 			target.sendMessage(fmsgTarget);
 			socialSpy(sender, target, msg);
 			confirmAndLog(true, sender, fmsgSender, channel);
+		} else {
+			sender.sendMessage("\u00A7c" + MemStorage.locale.get("NOBODY_HEAR"));
 		}
 	}
 
@@ -63,7 +65,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.mapignore.containsKey(target.getName())) continue;
-			if (LiveChat.perms.has(target, "livechat.map.receive")) continue;
+			if (!LiveChat.perms.has(target, "livechat.map.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (!target.getWorld().equals(sender.getWorld())) continue;
 			if (target.equals(sender)) continue;
@@ -80,7 +82,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.localignore.containsKey(target.getName())) continue;
-			if (LiveChat.perms.has(target, "livechat.local.receive")) continue;
+			if (!LiveChat.perms.has(target, "livechat.local.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (!target.getWorld().equals(sender.getWorld())) continue;
 			if (target.equals(sender)) continue;
@@ -112,7 +114,7 @@ public class Sender {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player target:players) {
 			if (MemStorage.emoteignore.containsKey(target.getName())) continue;
-			if (LiveChat.perms.has(target, "livechat.emote.receive")) continue;
+			if (!LiveChat.perms.has(target, "livechat.emote.receive")) continue;
 			if (Utils.isIgnored(sender, target) && !LiveChat.perms.has(sender, "livechat.ignore.bypass")) continue;
 			if (target.equals(sender)) continue;
 			target.sendMessage(fmsg);
@@ -120,12 +122,12 @@ public class Sender {
 		}
 		confirmAndLog(heard, sender, fmsg, channel);
 	}
-	
+
 	private static void socialSpy(Player sender, Player target, String msg) {
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		for (Player playerlist:players) {
 			if (!LiveChat.perms.has(playerlist, "livechat.socialspy")) continue;
-			if (MemStorage.socialspyoff.containsKey(playerlist)) continue;
+			if (MemStorage.socialspyoff.containsKey(playerlist.getName())) continue;
 			if (playerlist.equals(sender) || playerlist.equals(target)) continue;
 			playerlist.sendMessage(Format.withTarget(sender, target, msg, "socialspy"));
 		}

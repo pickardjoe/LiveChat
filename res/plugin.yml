@@ -105,7 +105,23 @@ permissions:
       default: false
    livechat.socialspy:
       default: false
-   livechat.global.*:
+   livechat.send:
+      default: true
+      children:
+         livechat.global.send: true
+         livechat.private.send: true
+         livechat.emote.send: true
+         livechat.map.send: true
+         livechat.local.send: true
+   livechat.receive:
+      default: true
+      children:
+         livechat.global.receive: true
+         livechat.private.receive: true
+         livechat.emote.receive: true
+         livechat.map.receive: true
+         livechat.local.receive: true
+   livechat.global:
       default: false
       children:
          livechat.global.send: true
@@ -113,7 +129,7 @@ permissions:
          livechat.global.color: true
          livechat.global.format: true
          livechat.global.magic: true
-   livechat.private.*:
+   livechat.private:
       default: false
       children:
          livechat.private.send: true
@@ -121,7 +137,7 @@ permissions:
          livechat.private.color: true
          livechat.private.format: true
          livechat.private.magic: true
-   livechat.emote.*:
+   livechat.emote:
       default: false
       children:
          livechat.emote.send: true
@@ -129,7 +145,7 @@ permissions:
          livechat.emote.color: true
          livechat.emote.format: true
          livechat.emote.magic: true
-   livechat.map.*:
+   livechat.map:
       default: false
       children:
          livechat.map.send: true
@@ -137,7 +153,7 @@ permissions:
          livechat.map.color: true
          livechat.map.format: true
          livechat.map.magic: true
-   livechat.local.*:
+   livechat.local:
       default: false
       children:
          livechat.local.send: true
@@ -148,16 +164,13 @@ permissions:
    livechat.admin:
       default: op
       children:
-         livechat.global.*: true
-         livechat.private.*: true
-         livechat.emote.*: true
-         livechat.map.*: true
-         livechat.local.*: true
+         livechat.global: true
+         livechat.private: true
+         livechat.emote: true
+         livechat.map: true
+         livechat.local: true
          livechat.ignore: true
          livechat.mute: true
          livechat.block: true
          livechat.colortag: true
          livechat.socialspy: true
-   livechat.*:
-      children:
-         livechat.admin: true
