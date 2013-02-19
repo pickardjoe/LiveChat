@@ -67,7 +67,7 @@ public class LiveChat extends JavaPlugin {
 		this.MVCore = new MVCore(this);
 
 		//Setup TagAPI
-		if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
+		if (!Utils.TagAPI()) {
 			if (MemStorage.conf.getBoolean("head.tag")) {
 				this.getLogger().info("TagAPI not found. Colors can't be displayed over people's heads!");
 			}

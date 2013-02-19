@@ -71,4 +71,13 @@ public class Utils {
 			e.printStackTrace();
 		}
 	}
+
+	public static boolean TagAPI() {
+		try {
+		    Class.forName("org.kitteh.tag.PlayerReceiveNameTagEvent");
+		    return true;
+		} catch(Exception e) {
+		    return false;
+		}
+	}
 }
