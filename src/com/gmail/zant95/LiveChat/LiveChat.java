@@ -85,8 +85,8 @@ public class LiveChat extends JavaPlugin {
 
 		//Implement commands
 		getCommand("tell").setExecutor(new CommandHandler(this));
-		getCommand("r").setExecutor(new CommandHandler(this));
-		getCommand("me").setExecutor(new CommandHandler(this));
+		getCommand("reply").setExecutor(new CommandHandler(this));
+		getCommand("emote").setExecutor(new CommandHandler(this));
 		getCommand("map").setExecutor(new CommandHandler(this));
 		getCommand("local").setExecutor(new CommandHandler(this));
 		getCommand("global").setExecutor(new CommandHandler(this));

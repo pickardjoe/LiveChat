@@ -7,13 +7,13 @@ description: A complete chat suite for CraftBukkit.
 commands:
    tell:
       description: Sends a private message to the specified player.
-      aliases: [whisper,msg,pm,t,lctell]
-   r:
+      aliases: [lctell,whisper,msg,pm,t]
+   reply:
       description: Quickly reply the last player messaged you.
-      aliases: [reply,lcreply]
-   me:
+      aliases: [lcreply,r]
+   emote:
       description: Describes an action on the player's context.
-      aliases: [action,emote,lcme]
+      aliases: [lcme,action,me]
    map:
       description: Send a message in the actual map.
       aliases: [lcmap]

@@ -99,7 +99,7 @@ public class CommandHandler implements CommandExecutor {
 			}
 		}
 
-		if (command.getName().equalsIgnoreCase("r")) {
+		if (command.getName().equalsIgnoreCase("reply")) {
 			if (Utils.isConsole(sender)) {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
@@ -131,7 +131,7 @@ public class CommandHandler implements CommandExecutor {
 			}
 		}
 
-		if (command.getName().equalsIgnoreCase("me")) {
+		if (command.getName().equalsIgnoreCase("emote")) {
 			if (Utils.isConsole(sender)) {
 				plugin.getLogger().info(MemStorage.locale.get("NOT_AS_CONSOLE"));
 				return true;
